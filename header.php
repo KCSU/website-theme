@@ -31,8 +31,6 @@
     </style>
 
     <script src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
-    <script src="<?php echo get_template_directory_uri(); ?>/js/require/require.js" data-main="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
     <?php wp_head(); ?>
 </head>
 <body>
