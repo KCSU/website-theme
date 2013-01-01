@@ -48,7 +48,7 @@
                 </a>
                 <!-- the kcsu logo -->
                 <a class="brand" href="/">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu-logo-header.png" alt="KCSU" />
+                    <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu-dark-small.png" alt="KCSU" />
                 </a>
                 <!-- collapsible menu -->
                 <div class="nav-collapse collapse">
