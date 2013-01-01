@@ -5,13 +5,13 @@
  * @package KCSU
  * @file index.php
  * @author Conor Burgess <Burgess.Conor@gmail.com>
+ * @author Gideon Farrell <me@gideonfarrell.co.uk>
  * @license BSD 3-Clause
  *
  */
 
 get_header(); ?>
-
-		<div id="primary">
+		<div id="primary" class="container">
 			<div id="content" role="main">
 
 			<?php if ( have_posts() ) : ?>
