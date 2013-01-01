@@ -1,3 +1,14 @@
+<?php
+    /**
+     * KCSU website functions and definitions (can declare global variables here)
+     *
+     * @package KCSU
+     * @file header.php
+     * @author  Gideon Farrell <me@gideonfarrell.co.uk>
+     * @license BSD 3-Clause
+     *
+     */
+?>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
