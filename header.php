@@ -61,24 +61,18 @@
                 <a class="brand" href="/">
                     <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu-dark-small.png" alt="KCSU" />
                 </a>
-                <!-- collapsible menu -->
+                <!-- Collapsible menu -->
                 <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="/" title="Home">Home</a></li>
-                        <li><a href="#" title="News">Latest</a></li>
-                        <li><a href="#" title="Events">Events</a></li>
-                        <li><a href="#" title="The Exec">The Exec</a></li>
-                        <?php // if not logged in ?>
-                        <li><a href="#" title="Contact">Contact</a></li>
-                        <?php // else if logged in ?>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" title="Settings">Settings</a></li>
-                                <li><a href="#" title="Logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <?php
+                    wp_nav_menu( array(
+                        //'theme_location'  => ,
+                        'menu'            => 'navbar', 
+                        'container'       => false,
+                        'menu_class'      => 'nav',
+                        'depth'           => 2,
+                        'walker'          =>  new twitter_bootstrap_nav_walker())
+                    );
+                ?>
                 </div>
             </div>
         </div>
