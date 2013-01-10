@@ -95,3 +95,16 @@
     }
     endif;
 
+    /**
+     * Register and configure menus
+     */
+    
+    require_once('lib/twitter_bootstrap_nav_walker.php');
+    function register_menus() {
+        // The main navbar (top menu)
+        register_nav_menus(array(
+            'navbar'    =>  __('Navigation Menu')
+        ));
+    }
+    add_action('init', 'register_menus');
+
