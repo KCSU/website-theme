@@ -40,7 +40,7 @@ require.config({
 require(
     [
         'jquery', 'Holder',
-        'bootstrap/dropdown', 'bootstrap/alert'
+        'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse'
     ],
     function() {
         
