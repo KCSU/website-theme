@@ -39,7 +39,7 @@ require.config({
 // Initialise application
 require(
     [
-        'jquery',
+        'jquery', 'Holder',
         'bootstrap/dropdown', 'bootstrap/alert'
     ],
     function() {
