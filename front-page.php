@@ -16,7 +16,7 @@
                 
                 query_posts( array ( 'category_name' => 'news', 'posts_per_page' => 10 ) );
                 
-                while (have_posts()) : the_post();?>
+                while (have_posts()) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
                    	<header class="entry-header">
                         <h1 class="entry-title entry-title-home"><a href="<?php the_permalink(); ?>" title="<?php printf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
@@ -24,7 +24,7 @@
                         <span class="entry-date-home"><?php kcsu_posted_on(); ?>
                     </header><!-- .entry-header -->
                 </article><!-- #post-<?php the_ID(); ?> -->
-                endwhile;
+                <?php endwhile;
 
                 wp_reset_query();
             ?>
@@ -51,7 +51,7 @@
                         <span class="entry-date-home"><?php kcsu_posted_on(); ?>
                     </header><!-- .entry-header -->
                 </article><!-- #post-<?php the_ID(); ?> -->
-                endwhile;
+                <?php endwhile;
                 remove_filter('posts_where', 'kcsu_events_filter_where');
                 wp_reset_query();
             ?>

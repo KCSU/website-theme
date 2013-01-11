@@ -16,7 +16,7 @@
         function kcsu_setup() {
             
             // We use wp_nav_menu() in the header and the front-page.
-            register_nav_menusarray('main_menu' => 'Header Menu',
+            register_nav_menus(array('main_menu' => 'Header Menu',
                                     'home_side_menu' => 'Home Side Menu') );
         }
     
