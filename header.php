@@ -65,7 +65,7 @@
                 <div class="nav-collapse collapse">
                 <?php
                     wp_nav_menu( array(
-                        //'theme_location'  => ,
+                        'theme_location'  => 'main_menu',
                         'menu'            => 'navbar', 
                         'container'       => false,
                         'menu_class'      => 'nav',

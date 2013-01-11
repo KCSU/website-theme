@@ -14,7 +14,10 @@
     if ( ! function_exists( 'kcsu_setup' ) ):
 
         function kcsu_setup() {
-
+            
+            // We use wp_nav_menu() in the header and the front-page.
+            register_nav_menusarray('main_menu' => 'Header Menu',
+                                    'home_side_menu' => 'Home Side Menu') );
         }
     
     endif; // twentyeleven_setup
@@ -78,9 +81,7 @@
     if ( ! function_exists( 'kcsu_posted_on' ) ) :
     /**
      * Prints HTML with meta information for the current post-date/time and author.
-     * Create your own twentyeleven_posted_on to override in a child theme
      *
-     * @since Twenty Eleven 1.0
      */
     function kcsu_posted_on() {
         printf( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>',
@@ -94,6 +95,16 @@
         );
     }
     endif;
+    
+    
+    /**
+     * Filters posts so only events in the next 30 are shown.
+     */
+    function kcsu_events_filter_where($where = '') {
+        
+        $where .= " AND post_date <= '" . date('Y-m-d', strtotime('+30 days')) . "'";
+        return $where;
+    }
 
     /**
      * Register and configure menus
