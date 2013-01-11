@@ -38,6 +38,7 @@
         <div id="EventsColumn" class="span4 home-column">
             <h2>Events</h2>
             <img data-src='holder.js/370x150' class='media-object' />
+            <ul class="posts-list events">
             <?php
                 # Need to loop through posts with cat=events
                 # TODO: get location of event
@@ -65,6 +66,7 @@
                 remove_filter('posts_where', 'kcsu_events_filter_where');
                 wp_reset_query();
             ?>
+            </ul>
         </div>
         <!-- Other Links -->
         <div id="OtherLinksColumn" class="span4 home-column">
