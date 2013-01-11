@@ -1,0 +1,24 @@
+.posts-list {
+    @background: @grayLighter;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0;
+    background: @background;
+
+    .border-bottom-radius(5px);
+
+    li {
+        background: @background;
+        cursor: pointer;
+        padding: 2px 5px;
+
+        &:nth-child(2n) {
+            background: lighten(@background, 5%);
+        }
+
+        &:hover {
+            background: darken(@background, 5%);
+        }
+    }
+}
