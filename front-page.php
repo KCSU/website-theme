@@ -11,47 +11,57 @@
         <div id="NewsColumn" class="span4 home-column">
             <h2>News</h2>
             <img data-src='holder.js/370x150' class='media-object' />
+            <ul class="posts-list news">
             <?php
                 # Need to loop through posts with cat=news
                 
                 query_posts( array ( 'category_name' => 'news', 'posts_per_page' => 10 ) );
                 
-                while (have_posts()) : the_post(); ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
-                   	<header class="entry-header">
-                        <h1 class="entry-title entry-title-home"><a href="<?php the_permalink(); ?>" title="<?php printf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-                        </h1>
-                        <span class="entry-date-home"><?php kcsu_posted_on(); ?>
-                    </header><!-- .entry-header -->
-                </article><!-- #post-<?php the_ID(); ?> -->
-                <?php endwhile;
+                while (have_posts()){
+                    the_post();
+                    echo string_format(
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="date">{date}</span></li>',
+                        array(
+                            'id'    =>  get_the_ID(),
+                            'link'  =>  get_permalink(),
+                            'title' =>  get_the_title(),
+                            'date'  =>  get_the_date('d/m/Y')
+                        )
+                    );
+                }
 
                 wp_reset_query();
             ?>
+            </ul>
         </div>
         <!-- Events -->
         <div id="EventsColumn" class="span4 home-column">
             <h2>Events</h2>
             <img data-src='holder.js/370x150' class='media-object' />
             <?php
-                # Need to loop through posts with cat=event?
+                # Need to loop through posts with cat=events
+                # TODO: get location of event
                 add_filter('posts_where', 'kcsu_events_filter_where');
-                query_posts( array ( 'category_name'    => 'event',
+                query_posts( array ( 'category_name'    => 'events',
                                      'posts_per_page'   => 10,
                                      'post_status'      => 'future',
                                      'orderby'          => 'date',
                                      'order'            => 'ascending'
                                     ) );
                 
-                while (have_posts()) : the_post();?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
-                   	<header class="entry-header">
-                        <h1 class="entry-title entry-title-home"><a href="<?php the_permalink(); ?>" title="<?php printf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-                        </h1>
-                        <span class="entry-date-home"><?php kcsu_posted_on(); ?>
-                    </header><!-- .entry-header -->
-                </article><!-- #post-<?php the_ID(); ?> -->
-                <?php endwhile;
+                while (have_posts()) {
+                    the_post();
+                    echo string_format(
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="date">{date}</span></li>',
+                        array(
+                            'id'    =>  get_the_ID(),
+                            'link'  =>  get_permalink(),
+                            'title' =>  get_the_title(),
+                            'date'  =>  get_the_date('d/m/Y')
+                        )
+                    );
+                }
+
                 remove_filter('posts_where', 'kcsu_events_filter_where');
                 wp_reset_query();
             ?>
