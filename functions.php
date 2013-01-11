@@ -8,6 +8,7 @@
  * @license BSD 3-Clause
  *
  */
+    require_once('lib/string_format.php');
     
     add_action( 'after_setup_theme', 'kcsu_setup' );
 
