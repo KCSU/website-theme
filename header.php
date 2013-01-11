@@ -74,6 +74,9 @@
                     );
                 ?>
                 </div>
+                <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
+                </form>
             </div>
         </div>
     </div>
