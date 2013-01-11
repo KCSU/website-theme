@@ -50,12 +50,15 @@
   float: left;
   display: block;
   // Vertically center the text given @navbarHeight
-  padding: ((@navbarHeight - @baseLineHeight) / 2) 20px ((@navbarHeight - @baseLineHeight) / 2);
+  @navPaddingTop: 10px;
+  padding: 10px 20px;
   margin-left: -20px; // negative indent to left-align the text down the page
   font-size: 20px;
   font-weight: 200;
   color: @navbarBrandColor;
   text-shadow: 0 1px 0 @navbarBackgroundHighlight;
+
+  img {max-height: @navbarHeight - (@navPaddingTop * 2);}
   &:hover {
     text-decoration: none;
   }
