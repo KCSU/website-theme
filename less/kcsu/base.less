@@ -1,0 +1,40 @@
+body {
+    background: url(img/background_pattern.png) repeat top left;
+    padding:0;
+}
+
+#KCSUPageHeader {
+    margin-bottom: 30px;
+    
+    .logo {
+        margin: 30px 0;
+    }
+
+    .navbar {
+        .navbar-inner {
+            background: transparent;
+
+            .border-radius(0);
+
+            border-left: 0;
+            border-right: 0;
+
+            .box-shadow(none);
+        }
+
+        .nav > li > a {
+            font-weight: bold;
+
+            &:hover {
+                border-left: thin solid darken(@navbarBackground, 5%);
+                border-right: thin solid darken(@navbarBackground, 5%);
+                background: @navbarBackground;
+            }
+
+            &.active {
+                background: transparent;
+                .box-shadow(0);
+            }
+        }
+    }
+}
