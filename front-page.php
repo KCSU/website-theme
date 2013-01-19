@@ -9,8 +9,7 @@
     <div class="row">
         <!-- News -->
         <div id="NewsColumn" class="span4 home-column">
-            <h2>News</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <img src="<?php echo get_template_directory_uri(); ?>/img/home_news.png" class='media-object' />
             <ul class="posts-list news">
             <?php
                 # Need to loop through posts with cat=news
@@ -36,8 +35,7 @@
         </div>
         <!-- Events -->
         <div id="EventsColumn" class="span4 home-column">
-            <h2>Events</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <img src="<?php echo get_template_directory_uri(); ?>/img/home_events.png" class='media-object' />
             <ul class="posts-list events">
             <?php
                 # Need to loop through posts with cat=events
@@ -70,8 +68,7 @@
         </div>
         <!-- Other Links -->
         <div id="OtherLinksColumn" class="span4 home-column">
-            <h2>Other</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <img src="<?php echo get_template_directory_uri(); ?>/img/home_about.png" class='media-object' />
             <?php
                 # Need a wordpress menu here, one with links to things like
                 #   info for prospective students
