@@ -115,8 +115,8 @@
     function register_menus() {
         // The main navbar (top menu)
         register_nav_menus(array(
-            'navbar'     =>  __('Navigation Menu'),
-            'home-other' =>  __('Other Links')
+            'navbar'         =>  __('Navigation Menu'),
+            'home-side-menu' =>  __('Front page about menu')
         ));
     }
     add_action('init', 'register_menus');
