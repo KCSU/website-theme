@@ -34,49 +34,45 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-    <style>
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-    </style>
 
     <script src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <?php wp_head(); ?>
 </head>
 <body>
-    <?php
-        // Now for the navigation
-    ?>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <!-- collapse button for low resolution devices -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!-- the kcsu logo -->
-                <a class="brand" href="/">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu-dark-small.png" alt="KCSU" />
-                </a>
-                <!-- Collapsible menu -->
-                <div class="nav-collapse collapse">
-                <?php
-                    wp_nav_menu( array(
-                        'theme_location'  => 'main_menu',
-                        'menu'            => 'navbar', 
-                        'container'       => false,
-                        'menu_class'      => 'nav',
-                        'depth'           => 2,
-                        'walker'          =>  new twitter_bootstrap_nav_walker())
-                    );
-                ?>
+    <div id="KCSUPageHeader" class="container header">
+        <div class="logo">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
+        </div>
+        <?php
+            // Now for the navigation
+        ?>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- collapse button for low resolution devices -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <!-- Collapsible menu -->
+                    <div class="nav-collapse collapse">
+                    <?php
+                        wp_nav_menu( array(
+                            'theme_location'  => 'main_menu',
+                            'menu'            => 'navbar', 
+                            'container'       => false,
+                            'menu_class'      => 'nav',
+                            'depth'           => 2,
+                            'walker'          =>  new twitter_bootstrap_nav_walker())
+                        );
+                    ?>
+                    </div>
+                    <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                        <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
+                    </form>
                 </div>
-                <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-                    <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
-                </form>
             </div>
         </div>
     </div>
+    <!-- END HEADER -->
