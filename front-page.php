@@ -85,8 +85,7 @@
                                    'container'       => false,
                                    'menu_class'      => 'nav',
                                    'depth'           => 2,
-                                   'echo'            => true,
-                                   'walker'          => new home_side_menu_nav_walker() ) );
+                                   'echo'            => true) );
             ?>
         </div>
     </div>
