@@ -16,7 +16,9 @@
                 <h1><?php the_title(); ?></h1>
                 <p>Posted <span class="date relative"><?php echo get_the_date('Y/m/d H:i:s'); ?></span> by <span class="author"><?php echo the_author_link(); ?></span></p>
             </header>
-
+            <div>
+                <?php the_content(); ?>
+            </div>
         </article>
         <section class="roll news span4">
             <h2>Hot off the press</h2>
