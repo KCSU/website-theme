@@ -18,7 +18,7 @@ define(['jquery', 'plugins/date.extend', 'lodash'], function($) {
         format_date = function(date_obj) {
             return _.template(options.format, {
                 'day_name': date_obj.getWeekday(),
-                'day': date_obj.getDay(),
+                'day': date_obj.getDate(),
                 'suffix': date_obj.getSuffix(),
                 'month': date_obj.getMonthName(),
                 'year': date_obj.getFullYear()
