@@ -44,9 +44,9 @@ require(
         'plugins/relative-dates'
     ],
     function(_, $) {
-        $('.date.relative').relativeDate();
         _.templateSettings = {
             interpolate : /\{\{(.+?)\}\}/g
         };
+        $('.date.relative').relativeDate();
     }
 );
