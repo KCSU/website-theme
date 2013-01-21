@@ -35,6 +35,11 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 
+    <!-- Some Fonts -->
+    <!-- Our serif font, Donegal One -->
+    <link href='http://fonts.googleapis.com/css?family=Donegal+One' rel='stylesheet' type='text/css'>
+
+    <!-- Respond polyfill + modernizr -->
     <script src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <?php wp_head(); ?>
 </head>
