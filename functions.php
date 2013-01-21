@@ -121,3 +121,5 @@
     }
     add_action('init', 'register_menus');
 
+    require_once('custom_post_types.php');
+

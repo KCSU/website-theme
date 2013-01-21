@@ -1,0 +1,44 @@
+<?php
+/**
+ * Register custom post types
+ */
+add_action( 'init', 'create_post_types' );
+function create_post_types() {
+    register_post_type('exec',
+        array(
+            'labels' => array(
+                'name'          => __('The Exec'),
+                'singular_name' => __('Exec'),
+                'all_items'     => __('the whole exec'),
+                'add_new_item'  => __('new member'),
+                'edit_item'     => __('edit profile'),
+                'new_item'      => __('new profile'),
+                'view_item'     => __('view profile')
+            ),
+        'public'        => true,
+        'heirarchical'  => false,
+        'rewrite'       => array('slug' => 'exec'),
+        'supports'      => array('title', 'thumbnail', 'custom-fields')
+        )
+    );
+    register_post_type('event',
+        array(
+            'labels' => array(
+                'name'          => __('Events'),
+                'singular_name' => __('event'),
+                'all_items'     => __('all events'),
+                'add_new_item'  => __('new event'),
+                'edit_item'     => __('edit event'),
+                'new_item'      => __('new event'),
+                'view_item'     => __('view event')
+            ),
+        'public'        => true,
+        'heirarchical'  => false,
+        'rewrite'       => array('slug' => 'events'),
+        'supports'      => array('title', 'custom-fields')
+        )
+    );
+}
+
+// need meta boxes for location (events), exec details and so on
+?>
