@@ -5,7 +5,7 @@ define(['jquery', 'plugins/date.extend', 'lodash'], function($) {
                 return $(el).text();
             },
             threshold: 'week', // day, week, month, year
-            format: '{{ day_name }}, {{ day }}{{suffix}} {{ month }} {{ year }}'
+            format: '{{ dn }}, {{ d }}{{ sx }} {{ mn }} {{ yy }}'
         },
         options = $.extend({}, defaults, opts),
         time_ago_in_words_with_parsing = function(from) {
@@ -15,55 +15,66 @@ define(['jquery', 'plugins/date.extend', 'lodash'], function($) {
         time_ago_in_words = function(from) {
             return distance_of_time_in_words(new Date(), from);
         },
-        format_date = function(date_obj) {
-            return _.template(options.format, {
-                'day_name': date_obj.getWeekday(),
-                'day': date_obj.getDate(),
-                'suffix': date_obj.getSuffix(),
-                'month': date_obj.getMonthName(),
-                'year': date_obj.getFullYear()
-            },
-            {
-                interpolate : /\{\{(.+?)\}\}/g
-            });
-        },
         distance_of_time_in_words = function(to, from) {
-            var distance_in_seconds = ((to - from) / 1000),
-                distance_in_minutes = Math.floor(distance_in_seconds / 60),
-                date = new Date(from),
+            var seconds = ((to - from) / 1000),
+                future  = (to > from),
 
-                day   = 1440,
-                week  = 10080,
-                month = 43200,
-                year  = 525960;
+                day     = 1440,
+                week    = 10080,
+                month   = 43200,
+                year    = 525960,
 
-            if (distance_in_minutes === 0) { return 'less than a minute ago'; }
-            if (distance_in_minutes == 1) { return 'a minute ago'; }
+                minutes = Math.abs(Math.floor(seconds / 60)),
+                hours   = Math.floor(minutes / 60),
+                days    = Math.floor(minutes / day),
+                weeks   = Math.floor(minutes / week),
+                months  = Math.floor(minutes / month),
+                years   = Math.floor(minutes / year),
+                date    = new Date(from),
+
+                message = '';
+
+            if (minutes === 0) { message = (future ? 'in less than a minute' : 'less than a minute ago'); }
+            else if (minutes == 1) { message = (future ? 'in one minute' : 'a minute ago'); }
             // between 1 and 45 minutes
-            if (distance_in_minutes < 45) { return distance_in_minutes + ' minutes ago'; }
+            else if (minutes < 45) { message = (future ? 'in {{ m }}' : '{{ m }} minutes ago'); }
             // between 45 and 90 minutes (3/4 - 1.5 hours)
-            if (distance_in_minutes < 90) { return 'about 1 hour ago'; }
+            else if (minutes < 90) { message = (future ? 'in about an hour' : 'about an hour ago'); }
             // between 1.5 and 24 hours
-            if (distance_in_minutes < day) { return 'about ' + Math.round(distance_in_minutes / 60) + ' hours ago'; }
+            else if (minutes < day) { message =  (future ? 'in about {{ h }} hours' : 'about {{ h }} hours ago'); }
             // between one and two days
-            if (distance_in_minutes < 2 * day) { return 'yesterday'; }
-            if(options.threshold == 'day') return format_date(date);
+            else if (minutes < 2 * day) { message = (future ? 'tomorrow' : 'yesterday'); }
+            else if(options.threshold == 'day') message = options.format;
             // under a week
-            if (distance_in_minutes < week) { return 'on ' + date.getWeekday(); }
-            if(options.threshold == 'week') return format_date(date);
+            else if (minutes < week) { message = (future ? 'next' : 'on') + ' {{ wd }}'; }
+            else if(options.threshold == 'week') message = options.format;
             // under a month
-            if (distance_in_minutes < month) { return Math.floor(distance_in_minutes / 1440) + ' days ago'; }
-            if(options.threshold == 'month') return format_date(date);
+            else if (minutes < month) { message = (future ? 'in {{ d }} days' : '{{ d }} days ago'); }
+            else if(options.threshold == 'month') message = options.format;
             // between one and two months
-            if (distance_in_minutes < 2 * month) { return 'about 1 month ago'; }
+            else if (minutes < 2 * month) { message = (future ? 'in about a month' : 'about a month ago'); }
             // under a year
-            if (distance_in_minutes < year) { return Math.floor(distance_in_minutes / 43200) + ' months ago'; }
-            if(options.threshold == 'year') return format_date(date);
+            else if (minutes < year) { message = (future ? 'in {{ mo }} months' : '{{ mo }} months ago'); }
+            else if(options.threshold == 'year') message = options.format;
             // between one and two years
-            if (distance_in_minutes < 2 * year) { return 'about 1 year ago'; }
+            else if (minutes < 2 * year) { message = (future ? 'in about a year' : 'about a year ago'); }
 
             // otherwise just print the number of years
-            return 'over ' + Math.floor(distance_in_minutes / 525960) + ' years ago';
+            else { message = (future ? 'in over {{ y }} years' : 'over {{ y }} years ago'); }
+
+            return _.template(message, {
+                m:  minutes,
+                h:  hours,
+                d:  days,
+                dn: date.getWeekday(),
+                sx: date.getSuffix(),
+                wd: date.getWeekday(),
+                w:  weeks,
+                mo: months,
+                mn: date.getMonthName(),
+                y:  years,
+                yy: date.getFullYear()
+            });
         };
 
         return $(this).each(function(){
