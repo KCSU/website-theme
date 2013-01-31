@@ -15,10 +15,10 @@ function create_post_types() {
                 'new_item'      => __('new profile'),
                 'view_item'     => __('view profile')
             ),
-        'public'        => true,
-        'heirarchical'  => false,
-        'rewrite'       => array('slug' => 'exec'),
-        'supports'      => array('title', 'thumbnail', 'custom-fields')
+            'public'        => true,
+            'heirarchical'  => false,
+            'rewrite'       => array('slug' => 'exec'),
+            'supports'      => array('title', 'thumbnail', 'custom-fields')
         )
     );
     register_post_type('event',
@@ -32,13 +32,28 @@ function create_post_types() {
                 'new_item'      => __('new event'),
                 'view_item'     => __('view event')
             ),
-        'public'        => true,
-        'heirarchical'  => false,
-        'rewrite'       => array('slug' => 'events'),
-        'supports'      => array('title', 'custom-fields')
+            'public'        => true,
+            'heirarchical'  => false,
+            'rewrite'       => array('slug' => 'events'),
+            'supports'      => array('title', 'custom-fields')
+        )
+    );
+    register_post_type('marketplace',
+        array(
+            'labels' => array(
+                'name'          => __('Goods'),
+                'singular_name' => __('item'),
+                'all_items'     => __('all goods'),
+                'add_new_item'  => __('new item'),
+                'edit_item'     => __('edit item'),
+                'new_item'      => __('new item'),
+                'view_item'     => __('view item')
+            ),
+            'public'        => true,
+            'heirarchical'  => false,
+            'rewrite'       => array('slug' => 'marketplace'),
+            'supports'      => array('title', 'custom-fields')
         )
     );
 }
-
-// need meta boxes for location (events), exec details and so on
 ?>
