@@ -45,7 +45,7 @@
 </head>
 <body>
     <div id="KCSUPageHeader" class="container header">
-        <div class="logo">
+        <div class="logo hidden-phone">
             <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
         </div>
         <?php
@@ -54,6 +54,10 @@
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
+                    <!-- Brand only visible on phones -->
+                    <a class="brand visible-phone" href="/">
+                        KCSU
+                    </a>
                     <!-- collapse button for low resolution devices -->
                     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
@@ -72,10 +76,11 @@
                             'walker'          =>  new twitter_bootstrap_nav_walker())
                         );
                     ?>
-                    </div>
                     <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
                         <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
                     </form>
+                    </div>
+                    
                 </div>
             </div>
         </div>
