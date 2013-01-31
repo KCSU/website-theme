@@ -55,7 +55,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <!-- collapse button for low resolution devices -->
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
