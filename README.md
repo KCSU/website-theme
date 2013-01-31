@@ -10,3 +10,7 @@ This theme uses the following technologies:
 * Twitter Bootstrap
 * jQuery
 * LESS
+
+This theme needs the following plugins:
+
+* [Advanced Custom fields](http://wordpress.org/extend/plugins/advanced-custom-fields/)
