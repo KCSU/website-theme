@@ -18,7 +18,7 @@ function create_post_types() {
             'public'        => true,
             'heirarchical'  => false,
             'rewrite'       => array('slug' => 'exec'),
-            'supports'      => array('title', 'thumbnail', 'custom-fields')
+            'supports'      => array('title', 'thumbnail', 'editor', 'excerpt')
         )
     );
     register_post_type('event',
@@ -35,7 +35,7 @@ function create_post_types() {
             'public'        => true,
             'heirarchical'  => false,
             'rewrite'       => array('slug' => 'events'),
-            'supports'      => array('title', 'custom-fields')
+            'supports'      => array('title', 'author', 'editor')
         )
     );
     register_post_type('marketplace',
@@ -52,7 +52,7 @@ function create_post_types() {
             'public'        => true,
             'heirarchical'  => false,
             'rewrite'       => array('slug' => 'marketplace'),
-            'supports'      => array('title', 'custom-fields')
+            'supports'      => array('title', 'editor', 'custom-fields')
         )
     );
 }
