@@ -37,7 +37,7 @@ define(['jquery', 'plugins/date.extend', 'lodash'], function($) {
             if (minutes === 0) { message = (future ? 'in less than a minute' : 'less than a minute ago'); }
             else if (minutes == 1) { message = (future ? 'in one minute' : 'a minute ago'); }
             // between 1 and 45 minutes
-            else if (minutes < 45) { message = (future ? 'in {{ m }}' : '{{ m }} minutes ago'); }
+            else if (minutes < 45) { message = (future ? 'in {{ m }} minutes' : '{{ m }} minutes ago'); }
             // between 45 and 90 minutes (3/4 - 1.5 hours)
             else if (minutes < 90) { message = (future ? 'in about an hour' : 'about an hour ago'); }
             // between 1.5 and 24 hours
