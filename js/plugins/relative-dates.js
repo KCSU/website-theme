@@ -17,7 +17,7 @@ define(['jquery', 'plugins/date.extend', 'lodash'], function($) {
         },
         distance_of_time_in_words = function(to, from) {
             var seconds = ((to - from) / 1000),
-                future  = (to > from),
+                future  = (to < from),
 
                 day     = 1440,
                 week    = 10080,
