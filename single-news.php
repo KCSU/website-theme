@@ -9,17 +9,18 @@
  */
 ?>
 
-<div class="container">
+<div class="container news post">
+    <header>
+        <h1><?php the_title(); ?></h1>
+        <p>Posted <span class="date relative"><?php echo get_the_date('Y/m/d H:i:s'); ?></span> by <span class="author"><?php the_author_link(); ?></span></p>
+    </header>
+    <hr />
     <div class="row">
-        <article class="news span8">
-            <header>
-                <h1><?php the_title(); ?></h1>
-                <p>Posted <span class="date relative"><?php echo get_the_date('Y/m/d H:i:s'); ?></span> by <span class="author"><?php echo the_author_link(); ?></span></p>
-            </header>
-            <div>
+        <div class="span8">            
+            <article>
                 <?php the_content(); ?>
-            </div>
-        </article>
+            </article>
+        </div>
         <section class="roll news span4">
             <h2>Hot off the press</h2>
             <ul class="posts-list news">
@@ -31,7 +32,7 @@
                 while (have_posts()){
                     the_post();
                     echo string_format(
-                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="date">{date}</span></li>',
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
                         array(
                             'id'    =>  get_the_ID(),
                             'link'  =>  get_permalink(),
