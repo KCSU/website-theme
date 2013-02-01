@@ -76,11 +76,25 @@
                             'walker'          =>  new twitter_bootstrap_nav_walker())
                         );
                     ?>
+                    <!-- Account stuff -->
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="/wp-admin/index.php"><i class="icon-dashboard"></i> Dashboard</a></li>
+                                <li><a href="<?php echo wp_login_url(); ?>"><i class="icon-signin"></i> Log in</a></li>
+                                <li><a href="<?php echo wp_logout_url(); ?>"><i class="icon-signout"></i>  Log out</a></li>
+                            </ul>
+                        </li>    
+                    </ul>
+
+                    <!-- Search -->
                     <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
                         <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
                     </form>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
