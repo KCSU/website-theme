@@ -13,12 +13,8 @@ get_header();
 
 while(have_posts()): the_post();
 
-if (in_category('events')) {
-  include(TEMPLATEPATH.'/single_events.php');
-} elseif (in_category('news')) {
-  include(TEMPLATEPATH.'/single_news.php');
-} else{
-  include(TEMPLATEPATH.'/single_default.php');
+if(in_category('news')) {
+    include('single-news.php');
 }
 
 endwhile;
