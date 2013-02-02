@@ -1,0 +1,50 @@
+.posts-list {
+    @background: @grayLighter;
+
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0;
+
+    .border-bottom-radius(5px);
+
+    li {
+        background: @background;
+        cursor: pointer;
+        padding: @paddingLarge;
+
+        border-bottom: darken(@background, 10%) solid thin;
+
+        a {
+            font-weight: bold;
+            color: @purple;
+
+            &:hover {
+                text-decoration: none;
+                color: darken(@purple, 25%);
+            }
+        }
+
+        .aux {
+            font-style: italic;
+            color: @gray;
+            .pull-right
+        }
+
+        &:first-child {
+            .border-top-radius(5px);
+        }
+
+        &:last-child {
+            border-bottom: none;
+            .border-bottom-radius(5px);
+        }
+
+        &:nth-child(2n) {
+            background: darken(@background, 5%);
+        }
+
+        &:hover {
+            background: darken(@background, 10%);
+        }
+    }
+}

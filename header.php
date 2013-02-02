@@ -34,46 +34,69 @@
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
-    <style>
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-    </style>
 
+    <!-- Some Fonts -->
+    <!-- Our serif font, Donegal One -->
+    <link href='http://fonts.googleapis.com/css?family=Donegal+One' rel='stylesheet' type='text/css'>
+
+    <!-- Respond polyfill + modernizr -->
     <script src="<?php echo get_template_directory_uri(); ?>/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     <?php wp_head(); ?>
 </head>
 <body>
-    <?php
-        // Now for the navigation
-    ?>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <!-- collapse button for low resolution devices -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <!-- the kcsu logo -->
-                <a class="brand" href="/">
-                    <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu-dark-small.png" alt="KCSU" />
-                </a>
-                <!-- Collapsible menu -->
-                <div class="nav-collapse collapse">
-                <?php
-                    wp_nav_menu( array(
-                        'theme_location'  => 'main_menu',
-                        'menu'            => 'navbar', 
-                        'container'       => false,
-                        'menu_class'      => 'nav',
-                        'depth'           => 2,
-                        'walker'          =>  new twitter_bootstrap_nav_walker())
-                    );
-                ?>
+    <div id="KCSUPageHeader" class="container header">
+        <div class="logo hidden-phone">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
+        </div>
+        <?php
+            // Now for the navigation
+        ?>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Brand only visible on phones -->
+                    <a class="brand visible-phone" href="/">
+                        KCSU
+                    </a>
+                    <!-- collapse button for low resolution devices -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <!-- Collapsible menu -->
+                    <div class="nav-collapse collapse">
+                    <?php
+                        wp_nav_menu( array(
+                            'theme_location'  => 'main_menu',
+                            'menu'            => 'navbar', 
+                            'container'       => false,
+                            'menu_class'      => 'nav',
+                            'depth'           => 2,
+                            'walker'          =>  new twitter_bootstrap_nav_walker())
+                        );
+                    ?>
+                    <!-- Account stuff -->
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
+
+                            <ul class="dropdown-menu">
+                                <li><a href="/wp-admin/index.php"><i class="icon-dashboard"></i> Dashboard</a></li>
+                                <li><a href="<?php echo wp_login_url(); ?>"><i class="icon-signin"></i> Log in</a></li>
+                                <li><a href="<?php echo wp_logout_url(); ?>"><i class="icon-signout"></i>  Log out</a></li>
+                            </ul>
+                        </li>    
+                    </ul>
+
+                    <!-- Search -->
+                    <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                        <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
+                    </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <!-- END HEADER -->

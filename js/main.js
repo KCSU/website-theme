@@ -32,17 +32,21 @@
 // Basic configuration
 require.config({
     paths: {
-        'jquery':     'jquery/jquery-1.8.3'
+        'jquery':     'jquery-1.8.3'
     }
 });
 
 // Initialise application
 require(
     [
-        'jquery', 'Holder',
-        'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse'
+        'lodash', 'jquery', 'Holder',
+        'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse',
+        'plugins/relative-dates'
     ],
-    function() {
-        
+    function(_, $) {
+        _.templateSettings = {
+            interpolate : /\{\{(.+?)\}\}/g
+        };
+        $('.date.relative').relativeDate();
     }
 );

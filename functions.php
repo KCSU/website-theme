@@ -8,6 +8,7 @@
  * @license BSD 3-Clause
  *
  */
+    require_once('lib/string_format.php');
     
     add_action( 'after_setup_theme', 'kcsu_setup' );
 
@@ -16,7 +17,7 @@
         function kcsu_setup() {
             
             // We use wp_nav_menu() in the header and the front-page.
-            register_nav_menusarray('main_menu' => 'Header Menu',
+            register_nav_menus(array('main_menu' => 'Header Menu',
                                     'home_side_menu' => 'Home Side Menu') );
         }
     
@@ -114,9 +115,11 @@
     function register_menus() {
         // The main navbar (top menu)
         register_nav_menus(array(
-            'navbar'     =>  __('Navigation Menu'),
-            'home-other' =>  __('Other Links')
+            'navbar'         =>  __('Navigation Menu'),
+            'home-side-menu' =>  __('Front page about menu')
         ));
     }
     add_action('init', 'register_menus');
+
+    require_once('custom_post_types.php');
 

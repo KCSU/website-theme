@@ -10,17 +10,11 @@
  */
 
 get_header(); ?>
+<div class="container">
+    <?php while ( have_posts() ) : the_post(); ?>
 
-		<div id="primary">
-			<div id="content" role="main">
+        <?php get_template_part( 'content', 'page' ); ?>
 
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<?php get_template_part( 'content', 'page' ); ?>
-
-				<?php endwhile; // end of the loop. ?>
-
-			</div><!-- #content -->
-		</div><!-- #primary -->
-<?php get_sidebar(); ?>
+    <?php endwhile; // end of the loop. ?>
+</div>
 <?php get_footer(); ?>

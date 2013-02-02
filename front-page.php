@@ -9,57 +9,74 @@
     <div class="row">
         <!-- News -->
         <div id="NewsColumn" class="span4 home-column">
-            <h2>News</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <!-- image header for anything bigger than a phone -->
+            <img src="<?php echo get_template_directory_uri(); ?>/img/home_news.png" class='media-object hidden-phone' />
+            <!-- on phones just have a title -->
+            <h2 class="visible-phone">News</h2>
+            <!-- the list -->
+            <ul class="posts-list news">
             <?php
                 # Need to loop through posts with cat=news
                 
                 query_posts( array ( 'category_name' => 'news', 'posts_per_page' => 10 ) );
                 
-                while (have_posts()) : the_post();?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
-                   	<header class="entry-header">
-                        <h1 class="entry-title entry-title-home"><a href="<?php the_permalink(); ?>" title="<?php printf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-                        </h1>
-                        <span class="entry-date-home"><?php kcsu_posted_on(); ?>
-                    </header><!-- .entry-header -->
-                </article><!-- #post-<?php the_ID(); ?> -->
-                endwhile;
+                while (have_posts()){
+                    the_post();
+                    echo string_format(
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
+                        array(
+                            'id'    =>  get_the_ID(),
+                            'link'  =>  get_permalink(),
+                            'title' =>  get_the_title(),
+                            'date'  =>  get_the_date('d/m/Y')
+                        )
+                    );
+                }
 
                 wp_reset_query();
             ?>
+            </ul>
         </div>
         <!-- Events -->
         <div id="EventsColumn" class="span4 home-column">
-            <h2>Events</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <!-- image header for anything bigger than a phone -->
+                        <img src="<?php echo get_template_directory_uri(); ?>/img/home_events.png" class='media-object hidden-phone' />
+                        <!-- on phones just have a title -->
+                        <h2 class="visible-phone">Events</h2>
+                        <!-- the list -->
+            <ul class="posts-list events">
             <?php
-                # Need to loop through posts with cat=event?
-                add_filter('posts_where', 'kcsu_events_filter_where');
-                query_posts( array ( 'category_name'    => 'event',
-                                     'posts_per_page'   => 10,
-                                     'post_status'      => 'future',
+                # Need to loop through posts with cat=events
+                # TODO: get location of event
+                query_posts( array ( 'posts_per_page'   => 10,
                                      'orderby'          => 'date',
-                                     'order'            => 'ascending'
+                                     'order'            => 'ascending',
+                                     'post_type'        => 'event'
                                     ) );
                 
-                while (have_posts()) : the_post();?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>
-                   	<header class="entry-header">
-                        <h1 class="entry-title entry-title-home"><a href="<?php the_permalink(); ?>" title="<?php printf( 'Permalink to %s', the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-                        </h1>
-                        <span class="entry-date-home"><?php kcsu_posted_on(); ?>
-                    </header><!-- .entry-header -->
-                </article><!-- #post-<?php the_ID(); ?> -->
-                endwhile;
-                remove_filter('posts_where', 'kcsu_events_filter_where');
+                while (have_posts()) {
+                    the_post();
+                    echo string_format(
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
+                        array(
+                            'id'    =>  get_the_ID(),
+                            'link'  =>  get_permalink(),
+                            'title' =>  get_the_title(),
+                            'date'  =>  get_the_date('d/m/Y')
+                        )
+                    );
+                }
                 wp_reset_query();
             ?>
+            </ul>
         </div>
         <!-- Other Links -->
         <div id="OtherLinksColumn" class="span4 home-column">
-            <h2>Other</h2>
-            <img data-src='holder.js/370x150' class='media-object' />
+            <!-- image header for anything bigger than a phone -->
+            <img src="<?php echo get_template_directory_uri(); ?>/img/home_about.png" class='media-object hidden-phone' />
+            <!-- on phones just have a title -->
+            <h2 class="visible-phone">About</h2>
+            <!-- the list -->
             <?php
                 # Need a wordpress menu here, one with links to things like
                 #   info for prospective students
@@ -74,10 +91,9 @@
                 
                 wp_nav_menu( array('theme_location'  => 'home_side_menu',
                                    'container'       => false,
-                                   'menu_class'      => 'nav',
+                                   'menu_class'      => 'posts-list',
                                    'depth'           => 2,
-                                   'echo'            => true,
-                                   'walker'          => new home_side_menu_nav_walker() ) );
+                                   'echo'            => true) );
             ?>
         </div>
     </div>
