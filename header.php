@@ -44,14 +44,11 @@
     <?php wp_head(); ?>
 </head>
 <body>
-    <div id="KCSUPageHeader" class="container header">
-        <div class="logo hidden-phone">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
-        </div>
+    <div id="KCSUPageHeader" class="header">
         <?php
             // Now for the navigation
         ?>
-        <div class="navbar">
+        <div class="navbar main">
             <div class="navbar-inner">
                 <div class="container">
                     <!-- Brand only visible on phones -->
@@ -59,13 +56,11 @@
                         KCSU
                     </a>
                     <!-- collapse button for low resolution devices -->
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                    <a class="expand-button btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        menu
                     </a>
                     <!-- Collapsible menu -->
-                    <div class="nav-collapse collapse">
+                    <div class="nav-collapse collapse pull-right">
                     <?php
                         wp_nav_menu( array(
                             'theme_location'  => 'main_menu',
@@ -90,13 +85,17 @@
                     </ul>
 
                     <!-- Search -->
+                    <?php /* ?>
                     <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
                         <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
                     </form>
                     </div>
-
+                    <?php */ ?>
                 </div>
             </div>
+        </div>
+        <div class="logo hidden-phone">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
         </div>
     </div>
     <!-- END HEADER -->
