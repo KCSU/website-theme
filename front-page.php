@@ -8,11 +8,8 @@
 <div class="container">
     <div class="row">
         <!-- News -->
-        <div id="NewsColumn" class="span4 home-column">
-            <!-- image header for anything bigger than a phone -->
-            <img src="<?php echo get_template_directory_uri(); ?>/img/home_news.png" class='media-object hidden-phone' />
-            <!-- on phones just have a title -->
-            <h2 class="visible-phone">News</h2>
+        <div id="NewsColumn" class="span8 home-column">
+            <h2>The Latest</h2>
             <!-- the list -->
             <ul class="posts-list news">
             <?php
@@ -23,12 +20,13 @@
                 while (have_posts()){
                     the_post();
                     echo string_format(
-                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
+                        '<li><article><!-- {id} --><div class="title"><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></div><div class="except">{excerpt}</div></article></li>',
                         array(
-                            'id'    =>  get_the_ID(),
-                            'link'  =>  get_permalink(),
-                            'title' =>  get_the_title(),
-                            'date'  =>  get_the_date('d/m/Y')
+                            'id'     =>  get_the_ID(),
+                            'link'   =>  get_permalink(),
+                            'title'  =>  get_the_title(),
+                            'date'   =>  get_the_date('d/m/Y'),
+                            'except' =>  get_the_excerpt()
                         )
                     );
                 }
@@ -39,11 +37,7 @@
         </div>
         <!-- Events -->
         <div id="EventsColumn" class="span4 home-column">
-            <!-- image header for anything bigger than a phone -->
-                        <img src="<?php echo get_template_directory_uri(); ?>/img/home_events.png" class='media-object hidden-phone' />
-                        <!-- on phones just have a title -->
-                        <h2 class="visible-phone">Events</h2>
-                        <!-- the list -->
+            <h2>Coming Up</h2>
             <ul class="posts-list events">
             <?php
                 # Need to loop through posts with cat=events
@@ -57,7 +51,7 @@
                 while (have_posts()) {
                     the_post();
                     echo string_format(
-                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
+                        '<a href="{link}" title="{title}"><li><!-- {id} -->{title} <span class="aux date">{date}</span></li></a>',
                         array(
                             'id'    =>  get_the_ID(),
                             'link'  =>  get_permalink(),
@@ -69,32 +63,6 @@
                 wp_reset_query();
             ?>
             </ul>
-        </div>
-        <!-- Other Links -->
-        <div id="OtherLinksColumn" class="span4 home-column">
-            <!-- image header for anything bigger than a phone -->
-            <img src="<?php echo get_template_directory_uri(); ?>/img/home_about.png" class='media-object hidden-phone' />
-            <!-- on phones just have a title -->
-            <h2 class="visible-phone">About</h2>
-            <!-- the list -->
-            <?php
-                # Need a wordpress menu here, one with links to things like
-                #   info for prospective students
-                #   formal booking (requires raven)
-                #   kords (requires raven)
-                #   pnyx (requires raven)
-                #   sports and societies
-                #   the exec (about us)
-                #   KCSU: a history
-                #   
-                #   other links will go in the navbar
-                
-                wp_nav_menu( array('theme_location'  => 'home_side_menu',
-                                   'container'       => false,
-                                   'menu_class'      => 'posts-list',
-                                   'depth'           => 2,
-                                   'echo'            => true) );
-            ?>
         </div>
     </div>
 </div>
