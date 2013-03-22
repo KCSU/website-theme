@@ -1,5 +1,5 @@
 body {
-    background: url(img/background_pattern.png) repeat top left;
+    //background: url(img/background_pattern.png) repeat top left;
     padding:0;
 }
 
@@ -12,7 +12,87 @@ footer#Footer {
     padding: @paddingSmall;
 }
 
-#KCSUPageHeader {
+.navbar.main {
+    border-top: @purple thick solid;
+
+    .navbar-inner {
+        background: transparent;
+        border:none;
+        .box-shadow(none);
+    }
+
+    .nav > li {
+        & > a {
+            color: black;
+            font-weight: bold;
+            text-shadow: none;
+            .transition(all 0.1s);
+
+            &:hover {
+                background: fade(@purple, 10%);
+            }
+        }
+
+        &.active > a {
+            background: @purple;
+            .box-shadow(none);
+            color: white;
+            border: none;
+        }
+
+        & > .dropdown-menu {
+            .box-shadow(none);
+            .border-radius(0);
+            margin: 0;
+
+            &:before {
+                border: none;
+            }
+
+            & > li {
+                border-top: @dropdownDividerTop thin solid;
+                border-bottom: @dropdownDividerBottom thin solid;
+
+                &:first-child {
+                    border-top: 0;
+                }
+                &:last-child {
+                    border-bottom: 0;
+                }
+
+                & > a {
+                    &:hover {
+                        background: @purple;
+                    }
+                }
+            }
+        }
+    }
+
+    .nav > li 
+
+    .expand-button {
+        cursor: pointer;
+        background: @purple;
+        color: @white;
+        border: none;
+        .box-shadow(none);
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+@media(max-width: @navbarCollapseWidth) {
+    .navbar.main {
+        border-top: none;
+        width:100%;
+        margin-top:5px;
+    }
+}
+
+/*#KCSUPageHeader {
     margin-bottom: 30px;
     
     .logo {
@@ -52,4 +132,4 @@ footer#Footer {
             }
         }
     }
-}
+}*/
