@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+        <!-- Logo: hidden on phones -->
         <div class="logo hidden-phone">
             <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
         </div>
