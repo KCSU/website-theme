@@ -11,7 +11,7 @@
         <div id="NewsColumn" class="span8 home-column">
             <h2>The Latest</h2>
             <!-- the list -->
-            <ul class="posts-list news">
+            <ul class="posts-list posts news">
             <?php
                 # Need to loop through posts with cat=news
                 
