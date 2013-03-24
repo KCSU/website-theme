@@ -26,7 +26,7 @@
                             'link'   =>  get_permalink(),
                             'title'  =>  get_the_title(),
                             'date'   =>  get_the_date('d/m/Y'),
-                            'except' =>  get_the_excerpt()
+                            'excerpt' =>  get_the_excerpt()
                         )
                     );
                 }
