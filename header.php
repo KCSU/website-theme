@@ -10,7 +10,7 @@
      */
 ?>
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+        <!-- Logo: hidden on phones -->
         <div class="logo hidden-phone">
             <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
         </div>

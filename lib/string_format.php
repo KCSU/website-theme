@@ -31,4 +31,11 @@ function string_format($string, $args) {
 
     return preg_replace_callback($pattern, $cb, $string);
 }
+
+function string_truncate($string, $len = 50, $end = '...') {
+    $l_end = strlen($end);
+    $len = $l_end < $len ? $len - $l_end : 0;
+
+    return substr($string, 0, $len).$end;
+}
 ?>

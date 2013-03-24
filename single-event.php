@@ -27,10 +27,11 @@ $custom_fields = get_post_custom();
         </div>
         <div class="span4">
             <section class="events extra">
-                <div>
-                    <p class="date"><?php echo get_the_date('l, jS F Y, H:i'); ?></p>
-                    <p class="location"><?php echo $custom_fields['location'][0]; ?></p>
-                </div>
+                <ul class="where-and-when">
+                    <li class="date"><i class="icon-calendar"></i><?php echo get_the_date('l, jS F Y'); ?></li>
+                    <li class="time"><i class="icon-time"></i><?php echo get_the_date('H:i'); ?></li>
+                    <li class="location"><i class="icon-map-marker"></i><?php echo $custom_fields['location'][0]; ?></li>
+                </ul>
             </section>
             <section class="roll events">
                 <h2>Coming up</h2>

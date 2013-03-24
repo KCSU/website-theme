@@ -11,7 +11,7 @@
         <div id="NewsColumn" class="span8 home-column">
             <h2>The Latest</h2>
             <!-- the list -->
-            <ul class="posts-list news">
+            <ul class="posts-list posts news">
             <?php
                 # Need to loop through posts with cat=news
                 
@@ -20,13 +20,21 @@
                 while (have_posts()){
                     the_post();
                     echo string_format(
-                        '<li><article><!-- {id} --><div class="title"><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></div><div class="except">{excerpt}</div></article></li>',
+                        '<li>
+                            <article><!-- {id} -->
+                                <header>
+                                    <a href="{link}" title="{title}" class="title">{title}</a>
+                                    <span class="aux date">{date}</span>
+                                </header>
+                                <div class="span7 excerpt">{excerpt}</div>
+                            </article><div class="clearfix"></div>
+                        </li>',
                         array(
-                            'id'     =>  get_the_ID(),
-                            'link'   =>  get_permalink(),
-                            'title'  =>  get_the_title(),
-                            'date'   =>  get_the_date('d/m/Y'),
-                            'except' =>  get_the_excerpt()
+                            'id'      =>  get_the_ID(),
+                            'link'    =>  get_permalink(),
+                            'title'   =>  get_the_title(),
+                            'date'    =>  get_the_date('d/m/Y'),
+                            'excerpt' =>  get_the_excerpt()
                         )
                     );
                 }

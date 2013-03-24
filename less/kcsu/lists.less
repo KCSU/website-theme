@@ -9,7 +9,6 @@
 
     li {
         background: @background;
-        cursor: pointer;
         padding: @paddingLarge;
 
         border-bottom: darken(@background, 10%) solid thin;
@@ -47,4 +46,29 @@
             background: darken(@background, 10%);
         }
     }
+}
+
+.posts {
+    list-style-type: none;
+    margin: 0;
+
+    li {
+        background: none;
+
+        .title {
+            font-size: @fontSizeLarge;
+        }
+
+        &:nth-child(2n) {
+            background: none;
+        }
+
+        &:hover {
+            background: @grayLighter;
+        }
+    }
+}
+
+ul.tabular, ol.tabular {
+    
 }

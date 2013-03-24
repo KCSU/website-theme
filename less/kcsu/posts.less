@@ -1,3 +1,7 @@
+article header {
+    margin-bottom: 1em;
+}
+
 .post {
     header {
         .date {
@@ -5,6 +9,16 @@
         }
         .author {
             color: @gray;
+        }
+    }
+
+    article {
+        p {
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
         }
     }
 }
