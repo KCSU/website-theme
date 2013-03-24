@@ -20,7 +20,7 @@
                 while (have_posts()){
                     the_post();
                     echo string_format(
-                        '<li><article><!-- {id} --><div class="title"><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></div><div class="except">{excerpt}</div></article></li>',
+                        '<li><article><!-- {id} --><div class="title"><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></div><div class="excerpt">{excerpt}</div></article></li>',
                         array(
                             'id'     =>  get_the_ID(),
                             'link'   =>  get_permalink(),
