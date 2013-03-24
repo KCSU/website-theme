@@ -10,19 +10,6 @@
  */
     require_once('lib/string_format.php');
     
-    add_action( 'after_setup_theme', 'kcsu_setup' );
-
-    if ( ! function_exists( 'kcsu_setup' ) ):
-
-        function kcsu_setup() {
-            
-            // We use wp_nav_menu() in the header and the front-page.
-            register_nav_menus(array('main_menu' => 'Header Menu',
-                                    'home_side_menu' => 'Home Side Menu') );
-        }
-    
-    endif; // twentyeleven_setup
-
     /**
      * Sets the post excerpt length to 40 words
      */
@@ -119,7 +106,7 @@
             'home-side-menu' =>  __('Front page about menu')
         ));
     }
-    add_action('init', 'register_menus');
+    add_action('after_setup_theme', 'register_menus');
 
     require_once('custom_post_types.php');
 
