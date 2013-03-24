@@ -27,7 +27,7 @@
                                     <span class="aux date">{date}</span>
                                 </header>
                                 <div class="span7 excerpt">{excerpt}</div>
-                            </article>
+                            </article><div class="clearfix"></div>
                         </li>',
                         array(
                             'id'      =>  get_the_ID(),
