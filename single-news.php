@@ -32,12 +32,11 @@
                 while (have_posts()){
                     the_post();
                     echo string_format(
-                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
+                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a></li>',
                         array(
                             'id'    =>  get_the_ID(),
                             'link'  =>  get_permalink(),
-                            'title' =>  get_the_title(),
-                            'date'  =>  get_the_date('d/m/Y')
+                            'title' =>  get_the_title()
                         )
                     );
                 }
