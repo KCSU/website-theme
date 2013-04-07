@@ -109,4 +109,5 @@
     add_action('after_setup_theme', 'register_menus');
 
     require_once('custom_post_types.php');
+    require_once('custom_fields.php');
 
