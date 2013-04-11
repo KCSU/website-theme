@@ -170,7 +170,7 @@ class acf_input
 		
 		// Style
 		echo '<style type="text/css" id="acf_style" >' . $style . '</style>';
-		//echo '<style type="text/css">.acf_postbox, .postbox[id*="acf_"] { display: none; }</style>';
+		echo '<style type="text/css">.acf_postbox, .postbox[id*="acf_"] { display: none; }</style>';
 		
 		
 		// add user js + css
