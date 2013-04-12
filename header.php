@@ -52,7 +52,7 @@
             <div class="navbar-inner">
                 <div class="container">
                     <!-- Collapsible menu -->
-                    <div class="nav-collapse collapse">
+                    <div class="navbar-menu nav-collapse collapse">
                     <?php
                         wp_nav_menu( array(
                             'theme_location'  => 'main_menu',
