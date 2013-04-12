@@ -48,5 +48,16 @@ require(
             interpolate : /\{\{(.+?)\}\}/g
         };
         $('.date.relative').relativeDate();
+
+        // navbar open/close on mobiles
+        $('.navbar.main .nav-collapse').on('show', function() {
+            var expBar = $('.navbar.main .expand-bar');
+            expBar.addClass('open');
+            expBar.find('i[class*="icon-"]').removeClass('icon-chevron-down').addClass('icon-chevron-up');
+        }).on('hide', function() {
+            var expBar = $('.navbar.main .expand-bar');
+            expBar.removeClass('open');
+            expBar.find('i[class*="icon-"]').removeClass('icon-chevron-up').addClass('icon-chevron-down');
+        });
     }
 );
