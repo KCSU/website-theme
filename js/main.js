@@ -39,7 +39,7 @@ require.config({
 // Initialise application
 require(
     [
-        'lodash', 'jquery', 'Holder',
+        'lodash', 'jquery', 'holder',
         'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse',
         'plugins/relative-dates'
     ],
