@@ -45,56 +45,53 @@
 </head>
 <body>
     <div id="KCSUPageHeader" class="header">
-        <?php
-            // Now for the navigation
-        ?>
         <div class="navbar main">
             <div class="navbar-inner">
                 <div class="container">
                     <!-- Collapsible menu -->
                     <div class="navbar-menu nav-collapse collapse">
-                    <?php
-                        wp_nav_menu( array(
-                            'theme_location'  => 'main_menu',
-                            'menu'            => 'navbar', 
-                            'container'       => false,
-                            'menu_class'      => 'nav',
-                            'depth'           => 2,
-                            'walker'          =>  new twitter_bootstrap_nav_walker())
-                        );
-                    ?>
-                    <!-- Account stuff -->
-                    <ul class="nav">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
+                        <?php
+                            wp_nav_menu( array(
+                                'theme_location'  => 'main_menu',
+                                'menu'            => 'navbar', 
+                                'container'       => false,
+                                'menu_class'      => 'nav',
+                                'depth'           => 2,
+                                'walker'          =>  new twitter_bootstrap_nav_walker())
+                            );
+                        ?>
+                        <!-- Account stuff -->
+                        <ul class="nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
 
-                            <ul class="dropdown-menu">
-                                <li><a href="/wp-admin/index.php"><i class="icon-dashboard"></i> Dashboard</a></li>
-                                <li><a href="<?php echo wp_login_url(); ?>"><i class="icon-signin"></i> Log in</a></li>
-                                <li><a href="<?php echo wp_logout_url(); ?>"><i class="icon-signout"></i>  Log out</a></li>
-                            </ul>
-                        </li>    
-                    </ul>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/wp-admin/index.php"><i class="icon-dashboard"></i> Dashboard</a></li>
+                                    <li><a href="<?php echo wp_login_url(); ?>"><i class="icon-signin"></i> Log in</a></li>
+                                    <li><a href="<?php echo wp_logout_url(); ?>"><i class="icon-signout"></i>  Log out</a></li>
+                                </ul>
+                            </li>    
+                        </ul>
 
-                    <!-- Search -->
-                    <?php /* ?>
-                    <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-                        <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
-                    </form>
+                        <!-- Search -->
+                        <?php /* ?>
+                        <form id="NavbarSearchForm" method="get" class="navbar-search pull-right" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                            <input name="s" id="NavbarSearchField" type="text" class="search-query" placeholder="search" />
+                        </form>
+                        </div>
+                        <?php */ ?>
                     </div>
-                    <?php */ ?>
-                </div>
-                <!-- collapse button for low resolution devices -->
-                <div class="expand-bar visible-phone">
-                    <a data-toggle="collapse" data-target=".nav-collapse">
-                        KCSU <i class="icon-chevron-down"></i>
-                    </a>
-                </div>
+                    <!-- collapse button for low resolution devices -->
+                    <div class="expand-bar visible-phone">
+                        <a data-toggle="collapse" data-target=".nav-collapse">
+                            KCSU <i class="icon-chevron-down"></i>
+                        </a>
+                    </div>
+                </div><!-- END .container -->
+            </div><!-- END .navbar-inner -->
+            <!-- Logo: hidden on phones -->
+            <div class="logo hidden-phone">
+                <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
             </div>
-        </div>
-        <!-- Logo: hidden on phones -->
-        <div class="logo hidden-phone">
-            <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
-        </div>
-    </div>
-    <!-- END HEADER -->
+        </div><!-- END .navbar.main -->
+    </div><!-- END HEADER -->
