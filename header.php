@@ -51,16 +51,8 @@
         <div class="navbar main">
             <div class="navbar-inner">
                 <div class="container">
-                    <!-- Brand only visible on phones -->
-                    <a class="brand visible-phone" href="/">
-                        KCSU
-                    </a>
-                    <!-- collapse button for low resolution devices -->
-                    <a class="expand-button btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        menu
-                    </a>
                     <!-- Collapsible menu -->
-                    <div class="nav-collapse collapse pull-right">
+                    <div class="navbar-menu nav-collapse collapse">
                     <?php
                         wp_nav_menu( array(
                             'theme_location'  => 'main_menu',
@@ -91,6 +83,12 @@
                     </form>
                     </div>
                     <?php */ ?>
+                </div>
+                <!-- collapse button for low resolution devices -->
+                <div class="expand-bar visible-phone">
+                    <a data-toggle="collapse" data-target=".nav-collapse">
+                        KCSU <i class="icon-chevron-down"></i>
+                    </a>
                 </div>
             </div>
         </div>
