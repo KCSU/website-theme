@@ -66,7 +66,7 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account <b class="caret"></b></a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="/wp-admin/index.php"><i class="icon-dashboard"></i> Dashboard</a></li>
+                                    <li><a href="<?php echo site_url('wp-login.php?super-admin=1', 'login'); ?>"><i class="icon-dashboard"></i> Dashboard</a></li>
                                     <li><a href="<?php echo wp_login_url(); ?>"><i class="icon-signin"></i> Log in</a></li>
                                     <li><a href="<?php echo wp_logout_url(); ?>"><i class="icon-signout"></i>  Log out</a></li>
                                 </ul>
