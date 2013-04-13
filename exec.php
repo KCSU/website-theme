@@ -1,4 +1,12 @@
 <?php
+    
+    /**
+     * Template Name: Exec
+     * Description: A Page Template to display the exec.
+     */
+    
+?>
+<?php
 /**
  * Exec list page
  * 
@@ -21,8 +29,7 @@ get_header();
                                '<li>
                                <article><!-- {id} -->
                                <header>
-                               <a href="{link}" title="{title}" class="title">{title}</a>
-                               <span class="aux date">{date}</span>
+                               <a href="{link}" title="{name}" class="title">{name}</a>
                                </header>
                                <div class="span7 excerpt">{excerpt}</div>
                                </article><div class="clearfix"></div>
@@ -30,10 +37,6 @@ get_header();
                                $exec
                                );
         }
-    ?>
-
-    <?php
-    endwhile;
     ?>
 </div>
 
