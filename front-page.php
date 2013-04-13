@@ -49,27 +49,15 @@
                 <h2>Coming Up</h2>
                 <ul class="posts-list events">
                 <?php
-                    # Need to loop through posts with cat=events
-                    # TODO: get location of event
-                    query_posts( array ( 'posts_per_page'   => 10,
-                                         'orderby'          => 'date',
-                                         'order'            => 'ascending',
-                                         'post_type'        => 'event'
-                                        ) );
+                    $events = kcsu_get_upcoming_events();
                     
-                    while (have_posts()) {
-                        the_post();
+                    foreach ($events as $event)
+                    {
                         echo string_format(
-                            '<a href="{link}" title="{title}"><li><!-- {id} -->{title} <span class="aux date">{date}</span></li></a>',
-                            array(
-                                'id'    =>  get_the_ID(),
-                                'link'  =>  get_permalink(),
-                                'title' =>  get_the_title(),
-                                'date'  =>  get_the_date('d/m/Y')
-                            )
-                        );
+                                           '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span><span class="aux"> - </span><span class="aux location">{location}</span></li>',
+                                           $event
+                                           );
                     }
-                    wp_reset_query();
                 ?>
                 </ul>
             </div>
