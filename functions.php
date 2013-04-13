@@ -49,10 +49,13 @@
         {
             $exec_query->the_post();
             $the_exec[] = array(
+                                'id'            => get_the_ID(),
                                 'name'          => get_the_title(),
                                 'description'   => get_the_content(),
                                 'email'         => get_field('email_address'),
                                 'user'          => get_field('incumbent'),
+                                'link'          => get_permalink(),
+                                'excerpt'       => get_the_excerpt()
                                 );
         }
         
@@ -80,10 +83,13 @@
         {
             $exec_query->the_post();
             $exec_member = array(
+                                 'id'            => get_the_ID(),
                                  'name'          => get_the_title(),
                                  'description'   => get_the_content(),
                                  'email'         => get_field('email_address'),
                                  'user'          => get_field('incumbent'),
+                                 'link'          => get_permalink(),
+                                 'excerpt'       => get_the_excerpt()
                                  );
         }
         
@@ -122,12 +128,18 @@
         while ( $event_query->have_posts() )
         {
             $event_query->the_post();
+            
+            $date = DateTime::createFromFormat('Ymd', get_field('date'));
+            
             $events[] = array(
-                              'name'        => get_the_title(),
+                              'id'          => get_the_ID(),
+                              'title'       => get_the_title(),
                               'description' => get_the_content(),
                               'location'    => get_field('location'),
-                              'date'        => get_field('date'),
+                              'date'        => $date->format('d/m/Y'),
                               'time'        => get_field('time'),
+                              'link'        => get_permalink(),
+                              'excerpt'     => get_the_excerpt()
                               );
         }
         
