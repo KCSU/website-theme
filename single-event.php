@@ -11,7 +11,6 @@
 get_header();
 
 while(have_posts()): the_post();
-$custom_fields = get_post_custom();
 ?>
 
 <div class="container events post">
@@ -28,38 +27,25 @@ $custom_fields = get_post_custom();
         <div class="span4">
             <section class="events extra">
                 <ul class="where-and-when">
-                    <li class="date"><i class="icon-calendar"></i><?php echo get_the_date('l, jS F Y'); ?></li>
-                    <li class="time"><i class="icon-time"></i><?php echo get_the_date('H:i'); ?></li>
-                    <li class="location"><i class="icon-map-marker"></i><?php echo $custom_fields['location'][0]; ?></li>
+                    <li class="date"><i class="icon-calendar"></i><?php 
+                        echo DateTime::createFromFormat('Ymd', get_field('date'))->format('l, jS F Y'); ?></li>
+                    <li class="time"><i class="icon-time"></i><?php echo get_field('time'); ?></li>
+                    <li class="location"><i class="icon-map-marker"></i><?php echo get_field('location'); ?></li>
                 </ul>
             </section>
             <section class="roll events">
                 <h2>Coming up</h2>
                 <ul class="posts-list events">
                 <?php
-                # Need to loop through posts with post-type = events
-                # Importantly need to insert date filtering
-                query_posts( array (
-                   'posts_per_page' => 10,
-                   'order'          => 'ascending',
-                   'post_type'      => 'event' 
-                   ) );
-
-                while (have_posts()) {
-                    the_post();
-                    echo string_format(
-                        '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span></li>',
-                        array(
-                            'id'    =>  get_the_ID(),
-                            'link'  =>  get_permalink(),
-                            'title' =>  get_the_title(),
-                            'date'  =>  get_the_date('d/m/Y')
-                            )
-                        );
-                }
-
-                remove_filter('posts_where', 'kcsu_events_filter_where');
-                wp_reset_query();
+                    $events = kcsu_get_upcoming_events();
+                    
+                    foreach ($events as $event)
+                    {
+                        echo string_format(
+                                           '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span><span class="aux"> - </span><span class="aux location">{location}</span></li>',
+                                           $event
+                                           );
+                    }
                 ?>
                 </ul>
             </section>
