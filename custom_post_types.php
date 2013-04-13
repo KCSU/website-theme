@@ -9,11 +9,11 @@ function create_post_types() {
             'labels' => array(
                 'name'          => __('The Exec'),
                 'singular_name' => __('Exec'),
-                'all_items'     => __('the whole exec'),
-                'add_new_item'  => __('new member'),
-                'edit_item'     => __('edit profile'),
-                'new_item'      => __('new profile'),
-                'view_item'     => __('view profile')
+                'all_items'     => __('The Whole Exec'),
+                'add_new_item'  => __('New Member'),
+                'edit_item'     => __('Edit Profile'),
+                'new_item'      => __('New Profile'),
+                'view_item'     => __('View Profile')
             ),
             'public'        => true,
             'heirarchical'  => false,
@@ -25,12 +25,12 @@ function create_post_types() {
         array(
             'labels' => array(
                 'name'          => __('Events'),
-                'singular_name' => __('event'),
-                'all_items'     => __('all events'),
-                'add_new_item'  => __('new event'),
-                'edit_item'     => __('edit event'),
-                'new_item'      => __('new event'),
-                'view_item'     => __('view event')
+                'singular_name' => __('Event'),
+                'all_items'     => __('All Events'),
+                'add_new_item'  => __('New Event'),
+                'edit_item'     => __('Edit Event'),
+                'new_item'      => __('New Event'),
+                'view_item'     => __('View Event')
             ),
             'public'        => true,
             'heirarchical'  => false,
@@ -42,12 +42,12 @@ function create_post_types() {
         array(
             'labels' => array(
                 'name'          => __('Goods'),
-                'singular_name' => __('item'),
-                'all_items'     => __('all goods'),
-                'add_new_item'  => __('new item'),
-                'edit_item'     => __('edit item'),
-                'new_item'      => __('new item'),
-                'view_item'     => __('view item')
+                'singular_name' => __('Item'),
+                'all_items'     => __('All Goods'),
+                'add_new_item'  => __('New Item'),
+                'edit_item'     => __('Edit Item'),
+                'new_item'      => __('New Item'),
+                'view_item'     => __('View Item')
             ),
             'public'        => true,
             'heirarchical'  => false,
