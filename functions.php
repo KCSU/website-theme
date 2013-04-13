@@ -74,8 +74,7 @@
         $args = array(
                       'post_type'       => 'exec',
                       'exec'            => $name,
-                      'posts_per_page'  => 1,
-                      'nopaging'        => true,
+                      'posts_per_page'  => 1
                       );
         $exec_query = new WP_Query( $args );
         
@@ -107,7 +106,9 @@
         $events = array();
         
         if ($time_limit == '')
-            $time_limit = date('ymd', strtotime('+7 days'));
+            $time_limit = date('Ymd', strtotime('+7 days'));
+        
+        $today = date('Ymd', time());
         
         $args = array(
                       'post_type'       => 'event',
@@ -116,11 +117,20 @@
                       'orderby'         => 'meta_value_num',
                       'order'           => 'ASC',
                       'meta_query'      => array(
-                                                 array(
-                                                       'key'     => 'date',
-                                                       'value'   => $time_limit,
-                                                       'compare' => '<=',
-                                                       ),
+                                                'relation' => 'AND',
+                                                array(
+                                                      'key'     => 'date',
+                                                      'value'   => $today,
+                                                      'compare' => '>=',
+                                                      'type'    => 'NUMERICAL',
+                                                      ),
+                                                array(
+                                                      'key'     => 'date',
+                                                      'value'   => $time_limit,
+                                                      'compare' => '<=',
+                                                      'type'    => 'NUMERICAL',
+                                                      ),
+                                                
                                                  ),
                       );
         $event_query = new WP_Query( $args );
