@@ -94,13 +94,14 @@
     }
     
     /**
-     * Returns all events happening in the next week
+     * Returns all events happening before specified date, or in the next week if not supplied.
      */
-    function kcsu_get_upcoming_events()
+    function kcsu_get_upcoming_events($time_limit = '')
     {
         $events = array();
         
-        $one_week = date('ymd', strtotime('+7 days'));
+        if ($time_limit == '')
+            $time_limit = date('ymd', strtotime('+7 days'));
         
         $args = array(
                       'post_type'       => 'event',
@@ -111,7 +112,7 @@
                       'meta_query'      => array(
                                                  array(
                                                        'key'     => 'date',
-                                                       'value'   => $one_week,
+                                                       'value'   => $time_limit,
                                                        'compare' => '<=',
                                                        ),
                                                  ),
