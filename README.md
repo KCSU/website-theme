@@ -5,12 +5,12 @@ License: [BSD 3-Clause](http://opensource.org/licenses/BSD-3-Clause)
 
 This theme is for the KCSU website's wordpress installation, and is branded according to KCSU's guidelines.
 
-This theme uses the following technologies:
+This theme is based on:
 
 * Twitter Bootstrap
 * jQuery
 * LESS
 
-This theme needs the following plugins:
+This theme has the [Advanced Custom fields](http://wordpress.org/extend/plugins/advanced-custom-fields/) plugin built in to it. It is also advisable to use the [Hide Toolbar Plugin](http://wordpress.org/extend/plugins/global-admin-bar-hide-or-remove/) to remove the admin bar when viewing the site.
 
-* [Advanced Custom fields](http://wordpress.org/extend/plugins/advanced-custom-fields/)
+The KCSU site should also use Raven authentication via the [WPRavenAuth](http://github.com/gfarrell/WPRavenAuth) plugin.
