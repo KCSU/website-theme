@@ -13,9 +13,23 @@ get_header();
 
 <div class="container">
     <?php
-    $args = array( 'post_type' => 'exec', 'posts_per_page' => 1000 ); // infinite posts per page (practically) since we want all the exec
-    $loop = new WP_Query( $args );
-    while ( $loop->have_posts() ) : $loop->the_post();
+        $execs = kcsu_get_exec();
+        
+        foreach ($execs as $exec)
+        {
+            echo string_format(
+                               '<li>
+                               <article><!-- {id} -->
+                               <header>
+                               <a href="{link}" title="{title}" class="title">{title}</a>
+                               <span class="aux date">{date}</span>
+                               </header>
+                               <div class="span7 excerpt">{excerpt}</div>
+                               </article><div class="clearfix"></div>
+                               </li>',
+                               $exec
+                               );
+        }
     ?>
 
     <?php
