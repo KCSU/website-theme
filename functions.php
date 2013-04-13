@@ -9,6 +9,131 @@
  *
  */
     require_once('lib/string_format.php');
+   
+    /**
+     * Register and configure menus
+     */
+    
+    require_once('lib/twitter_bootstrap_nav_walker.php');
+    function register_menus() {
+        // The main navbar (top menu)
+        register_nav_menus(array(
+                                 'navbar'         =>  __('Navigation Menu'),
+                                 'home-side-menu' =>  __('Front page about menu')
+                                 ));
+    }
+    add_action('after_setup_theme', 'register_menus');
+    
+    /**
+     * Custom post types and custom fields.
+     */
+    
+    require_once('custom_post_types.php');
+    require_once('custom_fields.php');
+    
+    /**
+     * Returns an array of exec members
+     */
+    function kcsu_get_exec()
+    {
+        
+        $the_exec = array();
+        
+        $args = array(
+                      'post_type'       => 'exec',
+                      'posts_per_page'  => -1,
+                      );
+        $exec_query = new WP_Query( $args );
+        
+        while ( $exec_query->have_posts() )
+        {
+            $exec_query->the_post();
+            $the_exec[] = array(
+                                'name'          => get_the_title(),
+                                'description'   => get_the_content(),
+                                'email'         => get_field('email_address'),
+                                'user'          => get_field('incumbent'),
+                                );
+        }
+        
+        wp_reset_postdata(); // Reset global post data
+        
+        return $the_exec;
+    }
+    
+    /**
+     * Returns a single exec member by their postname (e.g. gideon-farrell)
+     */
+    function kcsu_get_exec_member($name)
+    {
+        $exec_member;
+        
+        $args = array(
+                      'post_type'       => 'exec',
+                      'exec'            => $name,
+                      'posts_per_page'  => 1,
+                      'nopaging'        => true,
+                      );
+        $exec_query = new WP_Query( $args );
+        
+        while ( $exec_query->have_posts() )
+        {
+            $exec_query->the_post();
+            $exec_member = array(
+                                 'name'          => get_the_title(),
+                                 'description'   => get_the_content(),
+                                 'email'         => get_field('email_address'),
+                                 'user'          => get_field('incumbent'),
+                                 );
+        }
+        
+        wp_reset_postdata(); // Reset global post data
+        
+        return $exec_member;
+        
+    }
+    
+    /**
+     * Returns all events happening in the next week
+     */
+    function kcsu_get_upcoming_events()
+    {
+        $events = array();
+        
+        $one_week = date('ymd', strtotime('+7 days'));
+        
+        $args = array(
+                      'post_type'       => 'event',
+                      'posts_per_page'  => 10,
+                      'meta_key'        => 'date',
+                      'orderby'         => 'meta_value_num',
+                      'order'           => 'ASC',
+                      'meta_query'      => array(
+                                                 array(
+                                                       'key'     => 'date',
+                                                       'value'   => $one_week,
+                                                       'compare' => '<=',
+                                                       ),
+                                                 ),
+                      );
+        $event_query = new WP_Query( $args );
+        
+        while ( $event_query->have_posts() )
+        {
+            $event_query->the_post();
+            $events[] = array(
+                              'name'        => get_the_title(),
+                              'description' => get_the_content(),
+                              'location'    => get_field('location'),
+                              'date'        => get_field('date'),
+                              'time'        => get_field('time'),
+                              );
+        }
+        
+        wp_reset_postdata(); // Reset global post data
+        
+        return $events;
+    }
     
     /**
      * Sets the post excerpt length to 40 words
@@ -17,37 +142,6 @@
         return 40;
     }
     add_filter( 'excerpt_length', 'kcsu_excerpt_length' );
-
-    /**
-     * Returns a "Continue Reading" link for excerpts
-     */
-    function kcsu_continue_reading_link() {
-        return ' <a href="'. esc_url( get_permalink() ) . '">' . 'Continue reading <span class="meta-nav">&rarr;</span>' . '</a>';
-    }
-
-    /**
-     * Replaces "[...]" (appended to automatically generated excerpts) with an 
-     * ellipsis and kcsu_continue_reading_link().
-     *
-     */
-    function kcsu_auto_excerpt_more( $more ) {
-        return ' &hellip;' . kcsu_continue_reading_link();
-    }
-    add_filter( 'excerpt_more', 'kcsu_auto_excerpt_more' );
-
-    /**
-     * Adds a pretty "Continue Reading" link to custom post excerpts.
-     *
-     * To override this link in a child theme, remove the filter and add your own
-     * function tied to the get_the_excerpt filter hook.
-     */
-    function kcsu_custom_excerpt_more( $output ) {
-        if ( has_excerpt() && ! is_attachment() ) {
-            $output .= kcsu_continue_reading_link();
-        }
-        return $output;
-    }
-    add_filter( 'get_the_excerpt', 'kcsu_custom_excerpt_more' );
 
     /**
      * Register our sidebars and widgetized areas. 
@@ -64,50 +158,3 @@
         ) );
     }
     add_action( 'widgets_init', 'kcsu_widgets_init' );
-
-
-    if ( ! function_exists( 'kcsu_posted_on' ) ) :
-    /**
-     * Prints HTML with meta information for the current post-date/time and author.
-     *
-     */
-    function kcsu_posted_on() {
-        printf( '<span class="sep">Posted on </span><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s" pubdate>%4$s</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="%5$s" title="%6$s" rel="author">%7$s</a></span></span>',
-            esc_url( get_permalink() ),
-            esc_attr( get_the_time() ),
-            esc_attr( get_the_date( 'c' ) ),
-            esc_html( get_the_date() ),
-            esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-            esc_attr( sprintf('View all posts by %s', get_the_author() ) ),
-            get_the_author()
-        );
-    }
-    endif;
-    
-    
-    /**
-     * Filters posts so only events in the next 30 are shown.
-     */
-    function kcsu_events_filter_where($where = '') {
-        
-        $where .= " AND post_date <= '" . date('Y-m-d', strtotime('+30 days')) . "'";
-        return $where;
-    }
-
-    /**
-     * Register and configure menus
-     */
-    
-    require_once('lib/twitter_bootstrap_nav_walker.php');
-    function register_menus() {
-        // The main navbar (top menu)
-        register_nav_menus(array(
-            'navbar'         =>  __('Navigation Menu'),
-            'home-side-menu' =>  __('Front page about menu')
-        ));
-    }
-    add_action('after_setup_theme', 'register_menus');
-
-    require_once('custom_post_types.php');
-    require_once('custom_fields.php');
-
