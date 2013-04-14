@@ -53,7 +53,7 @@
                                 'title'         => get_the_title(),
                                 'description'   => get_the_content(),
                                 'email'         => get_field('email_address'),
-                                'user'          => get_field('incumbent'),
+                                'user'          => get_field('incumbent', get_the_ID(), true),
                                 'link'          => get_permalink(),
                                 'excerpt'       => get_the_excerpt()
                                 );
@@ -86,7 +86,7 @@
                                  'name'          => get_the_title(),
                                  'description'   => get_the_content(),
                                  'email'         => get_field('email_address'),
-                                 'user'          => get_field('incumbent'),
+                                 'user'          => get_field('incumbent', get_the_ID(), true),
                                  'link'          => get_permalink(),
                                  'excerpt'       => get_the_excerpt()
                                  );
