@@ -9,6 +9,7 @@
  *
  */
     require_once('lib/string_format.php');
+    require_once('lib/PhpLib/set.php');
    
     /**
      * Register and configure menus
@@ -48,15 +49,31 @@
         while ( $exec_query->have_posts() )
         {
             $exec_query->the_post();
-            $the_exec[] = array(
-                                'id'            => get_the_ID(),
-                                'title'         => get_the_title(),
-                                'description'   => get_the_content(),
-                                'email'         => get_field('email_address'),
-                                'user'          => get_field('incumbent', get_the_ID(), true),
-                                'link'          => get_permalink(),
-                                'excerpt'       => get_the_excerpt()
-                                );
+            $member = array(
+              'id'            => get_the_ID(),
+              'title'         => get_the_title(),
+              'description'   => get_the_content(),
+              'email'         => get_field('email_address'),
+              'link'          => get_permalink(),
+              'excerpt'       => get_the_excerpt(),
+              'user'          => array()
+            );
+
+            // now fetch incumbent data
+            $incumbents = explode(',', get_field('incumbent'));
+            foreach($incumbents as $incumbent) {
+              $u = get_userdatabylogin(trim($incumbent));
+              $u = PhpLib\Set::select(
+                      (array)$u->data,
+                      array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
+                    );
+              $member['user'][] = $u;
+            }
+
+            // Display the users nicely
+            $member['users_display'] = implode(', ', PhpLib\Set::extract($member, 'user.*.display_name'));
+
+            $the_exec[] = $member;
         }
         
         wp_reset_postdata(); // Reset global post data
@@ -86,10 +103,24 @@
                                  'title'         => get_the_title(),
                                  'description'   => get_the_content(),
                                  'email'         => get_field('email_address'),
-                                 'user'          => get_field('incumbent', get_the_ID(), true),
+                                 'user'          => array(),
                                  'link'          => get_permalink(),
                                  'excerpt'       => get_the_excerpt()
                                  );
+            
+            // now fetch incumbent data
+            $incumbents = explode(',', get_field('incumbent'));
+            foreach($incumbents as $incumbent) {
+              $u = get_userdatabylogin(trim($incumbent));
+              $u = PhpLib\Set::select(
+                      (array)$u->data,
+                      array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
+                    );
+              $exec_member['user'][] = $u;
+            }
+
+            // Display the users nicely
+            $exec_member['users_display'] = implode(', ', PhpLib\Set::extract($exec_member, 'user.*.display_name'));
         }
         
         wp_reset_postdata(); // Reset global post data
