@@ -68,3 +68,29 @@
         }
     }
 }
+
+.exec-list {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    li {
+        .transition(background 0.5s);
+
+        &:hover {
+            background: @grayLighter;
+        }
+        .mugshot {
+            text-align: center;
+        }
+        .info {
+            text-align: center;
+
+            .title {
+                font-weight: bold;
+            }
+            .name {
+                font-style: italic;
+            }
+        }
+    }
+}
