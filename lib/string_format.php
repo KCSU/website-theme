@@ -2,7 +2,7 @@
 function string_format($string, $args) {
     if(!is_array($args) || count($args) == 0) { return $string; }
 
-    $pattern = '|(\{)([A-Za-z0-9\-_]*)(\})|';
+    $pattern = '|(\{)([A-Za-z0-9\-_\.]*)(\})|';
 
     $i = 0;
     $c = count($args) - 1;
@@ -19,11 +19,26 @@ function string_format($string, $args) {
                 $out = $matches[0];
             }
         } else {
-            if(array_key_exists($in, $args)) {
-                $out = $args[$in];
+            if(strpos($in, '.') > 0) {
+                $in = explode('.', $in);
             } else {
-                $out = $matches[0];
+                $in = array($in);
             }
+
+            $capture = $args;
+            foreach($in as $part) {
+                if(is_array($capture)) {
+                    if(array_key_exists($part, $capture)) {
+                        $capture = $capture[$part];
+                    } else {
+                        return $matches[0];
+                    }
+                } else {
+                    return $matches[0];
+                }
+            }
+
+            $out = $capture;
         }
 
         return $out;
