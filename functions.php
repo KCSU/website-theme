@@ -50,7 +50,7 @@
             $exec_query->the_post();
             $the_exec[] = array(
                                 'id'            => get_the_ID(),
-                                'name'          => get_the_title(),
+                                'title'         => get_the_title(),
                                 'description'   => get_the_content(),
                                 'email'         => get_field('email_address'),
                                 'user'          => get_field('incumbent'),
