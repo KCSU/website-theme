@@ -65,7 +65,13 @@
             <div id="LinksColumn">
                 <h2>Getting Around</h2>
                 <ul class="links-list">
-                    <?php /* need some sort of menu here (yes, I'm resurrecting it) */ ?>
+                    <?php
+                        wp_nav_menu( array('theme_location'  => 'home_side_menu',
+                                           'container'       => false,
+                                           'menu_class'      => 'nav nav-list',
+                                           'depth'           => 2,
+                                           'echo'            => true) );
+                    ?>
                 </ul>
             </div>
         </div>
