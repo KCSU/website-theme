@@ -9,6 +9,7 @@
  *
  */
     require_once('lib/string_format.php');
+    require_once('lib/PhpLib/set.php');
    
     /**
      * Register and configure menus
