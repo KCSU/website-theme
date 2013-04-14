@@ -33,7 +33,7 @@ get_header();
               </div>
               <div class="info">
                 <span class="title"><a href="{link}" title="{title}">{title}</a></span><br/>
-                <span class="name">{user.display_name}</span><br/>
+                <span class="name">{users_display}</span><br/>
                 <span class="email"><a href="mailto:{email}">{email}</a></span>
               </div>
             </li>',
