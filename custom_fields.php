@@ -57,18 +57,15 @@ if(function_exists("register_field_group"))
                 'default_value' => '',
             ),
             array (
-                'key' => 'field_51608d24b4910',
-                'label' => 'incumbent',
+                'key' => 'field_516b0e3016d27',
+                'label' => 'incumbent(s)',
                 'name' => 'incumbent',
-                'type' => 'user',
-                'instructions' => 'Who is currently holding the position?',
+                'type' => 'text',
+                'instructions' => 'The CRSID of the current incumbent, separate with commas if there are multiple incumbents',
                 'required' => 1,
-                'role' => array (
-                    0 => 'all',
-                ),
-                'field_type' => 'select',
-                'allow_null' => 0,
-            ),
+                'default_value' => '',
+                'formatting' => 'none',
+            )
         ),
         'location' => array (
             'rules' => array (
