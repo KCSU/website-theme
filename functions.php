@@ -83,7 +83,7 @@
             $exec_query->the_post();
             $exec_member = array(
                                  'id'            => get_the_ID(),
-                                 'name'          => get_the_title(),
+                                 'title'         => get_the_title(),
                                  'description'   => get_the_content(),
                                  'email'         => get_field('email_address'),
                                  'user'          => get_field('incumbent', get_the_ID(), true),
