@@ -26,17 +26,17 @@ get_header();
         
         foreach ($execs as $exec)
         {
-            echo string_format(
-                               '<li>
-                               <article><!-- {id} -->
-                               <header>
-                               <a href="{link}" title="{name}" class="title">{name}</a>
-                               </header>
-                               <div class="span7 excerpt">{excerpt}</div>
-                               </article><div class="clearfix"></div>
-                               </li>',
-                               $exec
-                               );
+          echo string_format(
+            '<li><!-- {id} -->
+              <img class="profile-pic" alt="{title}" src="holder.js/100x100" />
+              <div class="info" style="text-align:center">
+                <span class="title"><a href="{link}" title="{title}">{title}</a></span><br/>
+                <span class="name">{name}</span><br/>
+                <span class="email"><a href="mailto:{email}">{email}</a></span>
+              </div>
+            </li>',
+            $exec
+          );
         }
     ?>
   </ul>
