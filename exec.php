@@ -20,6 +20,7 @@ get_header();
 ?>
 
 <div class="container">
+  <ul class="exec-list">
     <?php
         $execs = kcsu_get_exec();
         
@@ -38,6 +39,7 @@ get_header();
                                );
         }
     ?>
+  </ul>
 </div>
 
 <?php
