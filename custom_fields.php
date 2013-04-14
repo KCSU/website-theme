@@ -18,7 +18,7 @@
 
 // Include ACF in lite mode
 define('ACF_LITE', true);
-//require_once('advanced-custom-fields/acf.php');
+require_once('advanced-custom-fields/acf.php');
 
 // Fields 
 add_action('acf/register_fields', 'my_register_fields');
