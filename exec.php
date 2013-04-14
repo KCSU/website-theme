@@ -28,8 +28,10 @@ get_header();
         {
           echo string_format(
             '<li><!-- {id} -->
-              <img class="profile-pic" alt="{title}" src="holder.js/100x100" />
-              <div class="info" style="text-align:center">
+              <div class="mugshot">
+                <img class="profile-pic" alt="{title}" src="holder.js/100x100" />
+              </div>
+              <div class="info">
                 <span class="title"><a href="{link}" title="{title}">{title}</a></span><br/>
                 <span class="name">{name}</span><br/>
                 <span class="email"><a href="mailto:{email}">{email}</a></span>
