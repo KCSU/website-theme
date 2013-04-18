@@ -66,7 +66,7 @@
                 <h2>Getting Around</h2>
                 <ul class="links-list">
                     <?php
-                        wp_nav_menu( array('theme_location'  => 'home_side_menu',
+                        wp_nav_menu( array('theme_location'  => 'home-side-menu',
                                            'container'       => false,
                                            'menu_class'      => 'nav nav-list',
                                            'depth'           => 2,
