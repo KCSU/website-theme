@@ -226,19 +226,3 @@
         return 40;
     }
     add_filter( 'excerpt_length', 'kcsu_excerpt_length' );
-
-    /**
-     * Register our sidebars and widgetized areas. 
-     */
-    function kcsu_widgets_init() {
-        
-        register_sidebar( array(
-            'name' => 'Main Sidebar',
-            'id' => 'sidebar-1',
-            'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-            'after_widget' => "</aside>",
-            'before_title' => '<h3 class="widget-title">',
-            'after_title' => '</h3>',
-        ) );
-    }
-    add_action( 'widgets_init', 'kcsu_widgets_init' );
