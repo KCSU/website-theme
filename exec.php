@@ -29,7 +29,8 @@ get_header();
           echo string_format(
             '<li><!-- {id} -->
               <div class="mugshot">
-                <img class="profile-pic" alt="{title}" src="holder.js/100x100" />
+                {users_avatars}
+                <div class="clearfix"></div>
               </div>
               <div class="info">
                 <span class="title"><a href="{link}" title="{title}">{title}</a></span><br/>
