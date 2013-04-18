@@ -62,22 +62,25 @@
             // now fetch incumbent data
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
-              $u = get_userdatabylogin(trim($incumbent));
+              $u = get_user_by('login', trim($incumbent));
               if(function_exists('get_wp_user_avatar')) {
                 $avatar = get_wp_user_avatar( $u->data->id, $size = '100' );
               } else {
                 $avatar = get_avatar( $u->data->id, $size = '100' );
               }
-              $u = PhpLib\Set::select(
-                      (array)$u->data,
-                      array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
-                    );
-              $u['avatar'] = preg_replace(
+              $avatar = preg_replace(
                                 "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
                                 'class="profile-pic"',
                                 $avatar
                              );
-              $member['user'][] = $u;
+              $member['user'][] = array(
+                                        'ID'            => $u->ID,
+                                        'login'         => $u->user_login,
+                                        'nicename'      => $u->user_nicename,
+                                        'email'         => $u->user_email,
+                                        'display_name'  => $u->display_name,
+                                        'avatar'        => $avatar
+                                        );
             }
 
             // Display the users nicely
@@ -123,22 +126,25 @@
             // now fetch incumbent data
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
-              $u = get_userdatabylogin(trim($incumbent));
+              $u = get_user_by('login', trim($incumbent));
               if(function_exists('get_wp_user_avatar')) {
                 $avatar = get_wp_user_avatar( $u->data->id, $size = '100' );
               } else {
                 $avatar = get_avatar( $u->data->id, $size = '100' );
               }
-              $u = PhpLib\Set::select(
-                      (array)$u->data,
-                      array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
-                    );
-              $u['avatar'] = preg_replace(
+              $avatar = preg_replace(
                                 "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
                                 'class="profile-pic"',
                                 $avatar
                              );
-              $exec_member['user'][] = $u;
+              $member['user'][] = array(
+                                        'ID'            => $u->ID,
+                                        'login'         => $u->user_login,
+                                        'nicename'      => $u->user_nicename,
+                                        'email'         => $u->user_email,
+                                        'display_name'  => $u->display_name,
+                                        'avatar'        => $avatar
+                                        );
             }
 
             // Display the users nicely
