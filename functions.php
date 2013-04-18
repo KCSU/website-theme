@@ -63,15 +63,27 @@
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
               $u = get_userdatabylogin(trim($incumbent));
+              if(function_exists('get_wp_user_avatar')) {
+                $avatar = get_wp_user_avatar( $u->data->id, $size = '100' );
+              } else {
+                $avatar = get_avatar( $u->data->id, $size = '100' );
+              }
               $u = PhpLib\Set::select(
                       (array)$u->data,
                       array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
                     );
+              $u['avatar'] = preg_replace(
+                                "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
+                                'class="profile-pic"',
+                                $avatar
+                             );
               $member['user'][] = $u;
             }
 
             // Display the users nicely
             $member['users_display'] = implode(', ', PhpLib\Set::extract($member, 'user.*.display_name'));
+            // and their avatars
+            $member['users_avatars'] = implode('', PhpLib\Set::extract($member, 'user.*.avatar'));
 
             $the_exec[] = $member;
         }
@@ -112,15 +124,27 @@
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
               $u = get_userdatabylogin(trim($incumbent));
+              if(function_exists('get_wp_user_avatar')) {
+                $avatar = get_wp_user_avatar( $u->data->id, $size = '100' );
+              } else {
+                $avatar = get_avatar( $u->data->id, $size = '100' );
+              }
               $u = PhpLib\Set::select(
                       (array)$u->data,
                       array('ID', 'user_login', 'user_nicename', 'user_email', 'display_name')
                     );
+              $u['avatar'] = preg_replace(
+                                "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
+                                'class="profile-pic"',
+                                $avatar
+                             );
               $exec_member['user'][] = $u;
             }
 
             // Display the users nicely
             $exec_member['users_display'] = implode(', ', PhpLib\Set::extract($exec_member, 'user.*.display_name'));
+            // and their avatars
+            $exec_member['users_avatars'] = implode('', PhpLib\Set::extract($exec_member, 'user.*.avatar'));
         }
         
         wp_reset_postdata(); // Reset global post data
