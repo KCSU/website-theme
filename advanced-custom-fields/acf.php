@@ -3,7 +3,7 @@
 Plugin Name: Advanced Custom Fields
 Plugin URI: http://www.advancedcustomfields.com/
 Description: Fully customise WordPress edit screens with powerful fields. Boasting a professional interface and a powerfull API, it’s a must have for any web developer working with WordPress. Field types include: Wysiwyg, text, textarea, image, file, select, checkbox, page link, post object, date picker, color picker, repeater, flexible content, gallery and more!
-Version: 4.0.3
+Version: 4.2.2
 Author: Elliot Condon
 Author URI: http://www.elliotcondon.com/
 License: GPL
@@ -38,6 +38,7 @@ if( is_admin() )
 		include_once('core/controllers/upgrade.php');
 	}
 	
+	include_once('core/controllers/revisions.php');
 	include_once('core/controllers/everything_fields.php');	
 }
 
@@ -66,18 +67,24 @@ class Acf
 		$this->settings = array(
 			'path' => apply_filters('acf/helpers/get_path', __FILE__),
 			'dir' => apply_filters('acf/helpers/get_dir', __FILE__),
-			'version' => '4.0.3',
+			'hook' => basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ),
+			'version' => '4.2.2',
 			'upgrade_version' => '3.4.1',
 		);
 		
 		
 		// set text domain
-		load_plugin_textdomain('acf', false, basename(dirname(__FILE__)).'/lang' );
+		load_textdomain('acf', $this->settings['path'] . 'lang/acf-' . get_locale() . '.mo');
 		
 		
 		// actions
 		add_action('init', array($this, 'init'), 1);
 		add_action('acf/save_post', array($this, 'save_post'), 10);
+		
+		add_action('acf/pre_save_post', array($this, 'save_post_lock'), 0);
+		add_action('acf/pre_save_post', array($this, 'save_post_unlock'), 999);
+		add_action('acf/save_post', array($this, 'save_post_lock'), 0);
+		add_action('acf/save_post', array($this, 'save_post_unlock'), 999);
 		
 		
 		// filters
@@ -87,6 +94,7 @@ class Acf
 		add_filter('acf/get_taxonomies_for_select', array($this, 'get_taxonomies_for_select'), 1, 2);
 		add_filter('acf/get_image_sizes', array($this, 'get_image_sizes'), 1, 1);
 		add_action('acf/create_fields', array($this, 'create_fields'), 1, 2);
+		add_action('acf/get_post_id', array($this, 'get_post_id'), 1, 1);
 		
 		
 		// admin only
@@ -161,6 +169,65 @@ class Acf
 	
 	
 	/*
+	*  acf/get_post_id
+	*
+	*  A helper function to filter the post_id variable.
+	*
+	*  @type	filter
+	*  @date	27/05/13
+	*
+	*  @param	{mixed}	$post_id
+	*  @return	{mixed}	$post_id
+	*/
+	
+	function get_post_id( $post_id )
+	{
+		// set post_id to global
+		if( !$post_id )
+		{
+			global $post;
+			
+			if( $post )
+			{
+				$post_id = intval( $post->ID );
+			}
+		}
+		
+		
+		// allow for option == options
+		if( $post_id == "option" )
+		{
+			$post_id = "options";
+		}
+		
+		
+		/*
+		*  Override for preview
+		*  
+		*  If the $_GET['preview_id'] is set, then the user wants to see the preview data.
+		*  There is also the case of previewing a page with post_id = 1, but using get_field
+		*  to load data from another post_id.
+		*  In this case, we need to make sure that the autosave revision is actually related
+		*  to the $post_id variable. If they match, then the autosave data will be used, otherwise, 
+		*  the user wants to load data from a completely different post_id
+		*/
+		
+		if( isset($_GET['preview_id']) )
+		{
+			$autosave = wp_get_post_autosave( $_GET['preview_id'] );
+			if( $autosave->post_parent == $post_id )
+			{
+				$post_id = intval( $autosave->ID );
+			}
+		}
+		
+		
+		// return
+		return $post_id;
+	}
+	
+	
+	/*
 	*  get_info
 	*
 	*  @description: helper to get variable from settings array
@@ -203,18 +270,28 @@ class Acf
 	
 	function parse_types( $value )
 	{
+		// vars
+		$restricted = array(
+			'label',
+			'name',
+			'value',
+			'instructions'
+		);
+		
 		
 		// is value another array?
 		if( is_array($value) )
 		{
 			foreach( $value as $k => $v )
 			{
-				// if $field was passed, never modify the value! NEVER!
-				if( $k === 'value' )
+				// bail early for restricted pieces
+				if( in_array($k, $restricted, true) )
 				{
 					continue;
 				}
 				
+				
+				// filter piece
 				$value[ $k ] = apply_filters( 'acf/parse_types', $v );
 			}	
 		}
@@ -233,7 +310,8 @@ class Acf
 				// float / int
 				if( strpos($value,'.') !== false )
 				{
-					$value = floatval( $value );
+					// leave decimal places alone
+					//$value = floatval( $value );
 				}
 				else
 				{
@@ -293,18 +371,13 @@ class Acf
 		$scripts = array();
 		$scripts[] = array(
 			'handle' => 'acf-field-group',
-			'src' => $this->settings['dir'] . 'js/field-group.js',
+			'src' => $this->settings['dir'] . 'js/field-group.min.js',
 			'deps' => array('jquery')
 		);
 		$scripts[] = array(
 			'handle' => 'acf-input',
-			'src' => $this->settings['dir'] . 'js/input.php',
+			'src' => $this->settings['dir'] . 'js/input.min.js',
 			'deps' => array('jquery')
-		);
-		$scripts[] = array(
-			'handle' => 'acf-input-ajax',
-			'src' => $this->settings['dir'] . 'js/input/ajax.js',
-			'deps' => array('jquery', 'acf-input')
 		);
 		$scripts[] = array(
 			'handle' => 'acf-datepicker',
@@ -581,13 +654,15 @@ class Acf
 		if( is_array($fields) ){ foreach( $fields as $field ){
 			
 			// if they didn't select a type, skip this field
-			if( !$field['type'] || $field['type'] == 'null' ) continue;
+			if( !$field || !$field['type'] || $field['type'] == 'null' )
+			{
+				continue;
+			}
 			
 			
 			// set value
 			if( !isset($field['value']) )
 			{
-				
 				$field['value'] = apply_filters('acf/load_value', false, $post_id, $field);
 				$field['value'] = apply_filters('acf/format_value', $field['value'], $post_id, $field);
 			}
@@ -622,6 +697,48 @@ class Acf
 	
 	
 	/*
+	*  save_post_lock
+	*
+	*  This action sets a global variable which locks the ACF save functions to this ID.
+	*  This prevents an inifinite loop if a user was to hook into the save and create a new post
+	*
+	*  @type	function
+	*  @date	16/07/13
+	*
+	*  @param	{int}	$post_id
+	*  @return	{int}	$post_id
+	*/
+	
+	function save_post_lock( $post_id )
+	{
+		$GLOBALS['acf_save_lock'] = $post_id;
+		
+		return $post_id;
+	}
+	
+	
+	/*
+	*  save_post_unlock
+	*
+	*  This action sets a global variable which unlocks the ACF save functions to this ID.
+	*  This prevents an inifinite loop if a user was to hook into the save and create a new post
+	*
+	*  @type	function
+	*  @date	16/07/13
+	*
+	*  @param	{int}	$post_id
+	*  @return	{int}	$post_id
+	*/
+	
+	function save_post_unlock( $post_id )
+	{
+		$GLOBALS['acf_save_lock'] = false;
+		
+		return $post_id;
+	}
+	
+	
+	/*
 	*  save_post
 	*
 	*  @description: 
@@ -631,28 +748,25 @@ class Acf
 	
 	function save_post( $post_id )
 	{
-
+		
 		// load from post
 		if( !isset($_POST['fields']) )
 		{
-			return false;
+			return $post_id;
 		}
 		
 
 		// loop through and save
-		if( $_POST['fields'] )
+		if( !empty($_POST['fields']) )
 		{
-			foreach( $_POST['fields'] as $key => $value )
+			// loop through and save $_POST data
+			foreach( $_POST['fields'] as $k => $v )
 			{
-				// parse types
-				// - caused issues with saving numbers (0 were removed)
-				//$value = apply_filters('acf/parse_types', $value);
-		
 				// get field
-				$field = apply_filters('acf/load_field', false, $key );
+				$f = apply_filters('acf/load_field', false, $k );
 				
 				// update field
-				do_action('acf/update_value', $value, $post_id, $field );
+				do_action('acf/update_value', $v, $post_id, $f );
 				
 			}
 			// foreach($fields as $key => $value)
@@ -660,7 +774,7 @@ class Acf
 		// if($fields)
 		
 		
-		return true;
+		return $post_id;
 	}
 
 	

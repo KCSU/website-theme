@@ -84,8 +84,10 @@ function acf_filter_post_id( $post_id )
 function get_field_reference( $field_name, $post_id )
 {
 	// cache
-	$cache = wp_cache_get( 'field_reference-' . $post_id . '-' . $field_name, 'acf' );
-	if( $cache )
+	$found = false;
+	$cache = wp_cache_get( 'field_reference/post_id=' .  $post_id . '/name=' .  $field_name, 'acf', false, $found );
+
+	if( $found )
 	{
 		return $cache;
 	}
@@ -112,7 +114,7 @@ function get_field_reference( $field_name, $post_id )
 	
 	
 	// set cache
-	wp_cache_set( 'field_reference-' . $post_id . '-' . $field_name, $return, 'acf' );
+	wp_cache_set( 'field_reference/post_id=' .  $post_id . '/name=' .  $field_name, $return, 'acf' );
 		
 	
 	// return	
@@ -142,7 +144,7 @@ function get_field_objects( $post_id = false, $options = array() )
 	
 	
 	// filter post_id
-	$post_id = acf_filter_post_id( $post_id );
+	$post_id = apply_filters('acf/get_post_id', $post_id );
 
 
 	// vars
@@ -302,7 +304,7 @@ function get_field( $field_key, $post_id = false, $format_value = true )
 function get_field_object( $field_key, $post_id = false, $options = array() )
 {
 	// filter post_id
-	$post_id = acf_filter_post_id( $post_id );
+	$post_id = apply_filters('acf/get_post_id', $post_id );
 	$field = false;
 	$orig_field_key = $field_key;
 	
@@ -338,11 +340,12 @@ function get_field_object( $field_key, $post_id = false, $options = array() )
 		$field = array(
 			'type' => 'text',
 			'name' => $orig_field_key,
-			'key' => 'temp_key_for_' . $orig_field_key,
+			'key' => 'field_' . $orig_field_key,
 		);
+		$field = apply_filters('acf/load_field', $field, $field['key'] );
 	}
-	
-	
+
+
 	// load value
 	if( $options['load_value'] )
 	{
@@ -411,7 +414,7 @@ function has_sub_field( $field_name, $post_id = false )
 {
 
 	// filter post_id
-	$post_id = acf_filter_post_id( $post_id );
+	$post_id = apply_filters('acf/get_post_id', $post_id );
 	
 	
 	// empty?
@@ -676,22 +679,25 @@ function acf_get_child_field_from_parent_field( $child_name, $parent )
 				$return = $child;
 				break;
 			}
+			
+			// perhaps child has grand children?
+			$grand_child = acf_get_child_field_from_parent_field( $child_name, $child );
+			if( $grand_child )
+			{
+				$return = $grand_child;
+				break;
+			}
 		}
 	}
 	elseif( isset($parent['layouts']) && is_array($parent['layouts']) )
 	{
 		foreach( $parent['layouts'] as $layout )
 		{
-			if( isset($layout['sub_fields']) && is_array($layout['sub_fields']) )
+			$child = acf_get_child_field_from_parent_field( $child_name, $layout );
+			if( $child )
 			{
-				foreach( $layout['sub_fields'] as $child )
-				{
-					if( $child['name'] == $child_name || $child['key'] == $child_name )
-					{
-						$return = $child;
-						break;
-					}
-				}
+				$return = $child;
+				break;
 			}
 		}
 	}
@@ -737,7 +743,45 @@ function register_field_group( $array )
 		unset( $array['options']['show_on_page'] );
 	}
 
-
+	
+	// 4.0.4 - changed location rules architecture
+	if( isset($array['location']['rules']) )
+	{
+		// vars
+		$groups = array();
+		$group_no = 0;
+		
+		
+		if( is_array($array['location']['rules']) )
+	 	{
+		 	foreach( $array['location']['rules'] as $rule )
+		 	{
+			 	$rule['group_no'] = $group_no;
+			 	
+			 	// sperate groups?
+			 	if( $array['location']['allorany'] == 'any' )
+			 	{
+				 	$group_no++;
+			 	}
+			 	
+			 	
+			 	// add to group
+			 	$groups[ $rule['group_no'] ][ $rule['order_no'] ] = $rule;
+			 	
+			 	
+			 	// sort rules
+			 	ksort( $groups[ $rule['group_no'] ] );
+	 	
+		 	}
+		 	
+		 	// sort groups
+			ksort( $groups );
+	 	}
+	 	
+	 	$array['location'] = $groups;
+	}
+	
+	
 	$GLOBALS['acf_register_field_group'][] = $array;
 }
 
@@ -967,15 +1011,15 @@ function acf_form_head()
 		// $post_id to save against
 		$post_id = $_POST['post_id'];
 		
-
+		
 		// allow for custom save
 		$post_id = apply_filters('acf/pre_save_post', $post_id);
 		
 		
 		// save the data
 		do_action('acf/save_post', $post_id);	
-				
-				
+
+
 		// redirect
 		if(isset($_POST['return']))
 		{
@@ -1028,7 +1072,7 @@ function acf_form_wp_head()
 *  @return	N/A
 */
 
-function acf_form( $options = false )
+function acf_form( $options = array() )
 {
 	global $post;
 	
@@ -1039,29 +1083,40 @@ function acf_form( $options = false )
 		'field_groups' => array(),
 		'form' => true,
 		'form_attributes' => array(
-			'class' => ''
+			'id' => 'post',
+			'class' => '',
+			'action' => '',
+			'method' => 'post',
 		),
 		'return' => add_query_arg( 'updated', 'true', get_permalink() ),
 		'html_before_fields' => '',
 		'html_after_fields' => '',
-		'submit_value' => 'Update',
-		'updated_message' => 'Post updated.', 
+		'submit_value' => __("Update", 'acf'),
+		'updated_message' => __("Post updated", 'acf'), 
 	);
 	
 	
 	// merge defaults with options
-	if( $options && is_array($options) )
+	$options = array_merge($defaults, $options);
+	
+	
+	// merge sub arrays
+	foreach( $options as $k => $v )
 	{
-		$options = array_merge($defaults, $options);
-	}
-	else
-	{
-		$options = $defaults;
+		if( is_array($v) )
+		{
+			$options[ $k ] = array_merge($defaults[ $k ], $options[ $k ]);
+		}
 	}
 	
 	
 	// filter post_id
-	$options['post_id'] = acf_filter_post_id( $options['post_id'] );
+	$options['post_id'] = apply_filters('acf/get_post_id', $options['post_id'] );
+	
+	
+	// attributes
+	$options['form_attributes']['class'] .= 'acf-form';
+	
 	
 	
 	// register post box
@@ -1101,14 +1156,9 @@ function acf_form( $options = false )
 	}
 	
 	
-	// Javascript
-	$script_post_id = is_numeric($options['post_id']) ? $options['post_id'] : 0;
-	echo '<script type="text/javascript">acf.post_id = ' . $script_post_id . '; </script>';
-	
-	
 	// display form
 	if( $options['form'] ): ?>
-	<form action="" id="post" method="post" <?php if($options['form_attributes']){foreach($options['form_attributes'] as $k => $v){echo $k . '="' . $v .'" '; }} ?>>
+	<form <?php if($options['form_attributes']){foreach($options['form_attributes'] as $k => $v){echo $k . '="' . $v .'" '; }} ?>>
 	<?php endif; ?>
 	
 	<div style="display:none">
@@ -1144,10 +1194,9 @@ function acf_form( $options = false )
 		$fields = apply_filters('acf/field_group/get_fields', array(), $acf['id']);
 		
 		
-		echo '<div id="acf_' . $acf['id'] . '" class="postbox acf_postbox">';
+		echo '<div id="acf_' . $acf['id'] . '" class="postbox acf_postbox ' . $acf['options']['layout'] . '">';
 		echo '<h3 class="hndle"><span>' . $acf['title'] . '</span></h3>';
 		echo '<div class="inside">';
-		echo '<div class="options" data-layout="' . $acf['options']['layout'] . '" data-show="1"></div>';
 							
 		do_action('acf/create_fields', $fields, $options['post_id']);
 		
@@ -1196,7 +1245,7 @@ function acf_form( $options = false )
 function update_field( $field_key, $value, $post_id = false )
 {
 	// filter post_id
-	$post_id = acf_filter_post_id( $post_id );
+	$post_id = apply_filters('acf/get_post_id', $post_id );
 	
 	
 	// vars
@@ -1206,16 +1255,7 @@ function update_field( $field_key, $value, $post_id = false )
 	);
 	
 	$field = get_field_object( $field_key, $post_id, $options);
-	
-	
-	if( !is_array($field) )
-	{
-		$field = array(
-			'type' => 'none',
-			'name' => $field_key
-		);
-	}
-	
+
 	
 	// sub fields? They need formatted data
 	if( $field['type'] == 'repeater' )
