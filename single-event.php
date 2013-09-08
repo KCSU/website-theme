@@ -37,7 +37,7 @@ while(have_posts()): the_post();
                 <h2>Coming up</h2>
                 <ul class="posts-list events">
                 <?php
-                    $events = kcsu_get_upcoming_events();
+                    $events = kcsu_get_upcoming_events(date('Ymd', strtotime('+1 month')));
                     
                     foreach ($events as $event)
                     {
