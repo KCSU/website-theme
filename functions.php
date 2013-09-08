@@ -97,12 +97,11 @@
     }
     
     /**
-     * Returns a single exec member by their postname (e.g. gideon-farrell)
+     * Returns a single exec member by their postname (e.g. president)
      */
     function kcsu_get_exec_member($name)
     {
         $exec_member;
-        
         $args = array(
                       'post_type'       => 'exec',
                       'exec'            => $name,
@@ -137,7 +136,7 @@
                                 'class="profile-pic"',
                                 $avatar
                              );
-              $member['user'][] = array(
+              $exec_member['user'][] = array(
                                         'ID'            => $u->ID,
                                         'login'         => $u->user_login,
                                         'nicename'      => $u->user_nicename,
