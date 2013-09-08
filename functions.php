@@ -64,9 +64,9 @@
             foreach($incumbents as $incumbent) {
               $u = get_user_by('login', trim($incumbent));
               if(function_exists('get_wp_user_avatar')) {
-                $avatar = get_wp_user_avatar( $u->data->id, $size = '100' );
+                $avatar = get_wp_user_avatar( $u->ID, $size = '100' );
               } else {
-                $avatar = get_avatar( $u->data->id, $size = '100' );
+                $avatar = get_avatar( $u->ID, $size = '100' );
               }
               $avatar = preg_replace(
                                 "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
