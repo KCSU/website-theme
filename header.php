@@ -91,7 +91,7 @@
             </div><!-- END .navbar-inner -->
             <!-- Logo: hidden on phones -->
             <div class="logo hidden-phone">
-                <img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" />
+                <a href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri(); ?>/img/kcsu_full.png" alt="KCSU" /></a>
             </div>
         </div><!-- END .navbar.main -->
     </div><!-- END HEADER -->
