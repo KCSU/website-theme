@@ -49,7 +49,7 @@
                 <h2>Coming Up</h2>
                 <ul class="posts-list events">
                 <?php
-                    $events = kcsu_get_upcoming_events();
+                    $events = kcsu_get_upcoming_events(date('Ymd', strtotime('+1 month')));
                     
                     foreach ($events as $event)
                     {
