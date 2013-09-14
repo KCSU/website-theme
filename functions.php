@@ -78,7 +78,7 @@
                                         'login'         => $u->user_login,
                                         'nicename'      => $u->user_nicename,
                                         'email'         => $u->user_email,
-                                        'display_name'  => $u->display_name,
+                                        'display_name'  => $u->first_name . ' ' . $u->last_name,
                                         'avatar'        => $avatar
                                         );
             }
@@ -141,7 +141,7 @@
                                         'login'         => $u->user_login,
                                         'nicename'      => $u->user_nicename,
                                         'email'         => $u->user_email,
-                                        'display_name'  => $u->display_name,
+                                        'display_name'  => $u->first_name . ' ' . $u->last_name,
                                         'avatar'        => $avatar
                                         );
             }
