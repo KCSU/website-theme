@@ -63,16 +63,21 @@
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
               $u = get_user_by('login', trim($incumbent));
-              if(function_exists('get_wp_user_avatar')) {
-                $avatar = get_wp_user_avatar( $u->ID, $size = '100' );
-              } else {
-                $avatar = get_avatar( $u->ID, $size = '100' );
+              if (empty($u->ID))
+              {
+                  $u = get_user_by('login', 'Exec');
               }
-              $avatar = preg_replace(
-                                "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
-                                'class="profile-pic"',
-                                $avatar
-                             );
+              if(function_exists('get_wp_user_avatar')) {
+                $avatar_full = get_wp_user_avatar( $u->ID, $size = '100' );
+              } else {
+                $avatar_full = get_avatar( $u->ID, $size = '100' );
+              }
+              $avatar_image_src = "";
+              if(!empty($avatar_full)){
+                  $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar_full, $matches, PREG_SET_ORDER);
+                  $avatar_image_src = !empty($matches) ? $matches [0] [1] : "";
+              }
+              $avatar = '<img class="profile-pic" src="'.$avatar_image_src.'" alt="" />';
               $member['user'][] = array(
                                         'ID'            => $u->ID,
                                         'login'         => $u->user_login,
@@ -126,16 +131,21 @@
             $incumbents = explode(',', get_field('incumbent'));
             foreach($incumbents as $incumbent) {
               $u = get_user_by('login', trim($incumbent));
-              if(function_exists('get_wp_user_avatar')) {
-                $avatar = get_wp_user_avatar( $u->ID, $size = '100' );
-              } else {
-                $avatar = get_avatar( $u->ID, $size = '100' );
+              if (empty($u->ID))
+              {
+                  $u = get_user_by('login', 'Exec');
               }
-              $avatar = preg_replace(
-                                "/class='([A-Za-z0-9\-\ ]+)' height='(\d+)' width='(\d+)'/",
-                                'class="profile-pic"',
-                                $avatar
-                             );
+              if(function_exists('get_wp_user_avatar')) {
+                $avatar_full = get_wp_user_avatar( $u->ID, $size = '100' );
+              } else {
+                $avatar_full = get_avatar( $u->ID, $size = '100' );
+              }
+              $avatar_image_src = "";
+              if(!empty($avatar_full)){
+                  $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $avatar_full, $matches, PREG_SET_ORDER);
+                  $avatar_image_src = !empty($matches) ? $matches [0] [1] : "";
+              }
+              $avatar = '<img class="profile-pic" src="'.$avatar_image_src.'" alt="" />';
               $exec_member['user'][] = array(
                                         'ID'            => $u->ID,
                                         'login'         => $u->user_login,
