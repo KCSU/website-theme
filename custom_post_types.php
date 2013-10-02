@@ -38,22 +38,5 @@ function create_post_types() {
             'supports'      => array('title', 'author', 'editor')
         )
     );
-    register_post_type('marketplace',
-        array(
-            'labels' => array(
-                'name'          => __('Goods'),
-                'singular_name' => __('Item'),
-                'all_items'     => __('All Goods'),
-                'add_new_item'  => __('New Item'),
-                'edit_item'     => __('Edit Item'),
-                'new_item'      => __('New Item'),
-                'view_item'     => __('View Item')
-            ),
-            'public'        => true,
-            'heirarchical'  => false,
-            'rewrite'       => array('slug' => 'marketplace'),
-            'supports'      => array('title', 'editor', 'custom-fields')
-        )
-    );
 }
 ?>
