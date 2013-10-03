@@ -17,8 +17,11 @@
  */ 
 
 // Include ACF in lite mode
-define('ACF_LITE', true);
-include_once('advanced-custom-fields/acf.php');
+if (!defined('ACF_LITE'))
+{
+    define('ACF_LITE', true);
+    include_once(WPRavenAuth_dir . '/app/lib/advanced-custom-fields/acf.php');
+}
 
 // Fields 
 add_action('acf/register_fields', 'my_register_fields');
