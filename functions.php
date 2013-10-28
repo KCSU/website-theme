@@ -30,8 +30,12 @@
      */
     
     require_once('custom_post_types.php');
-    require_once('custom_fields.php');
-    
+    // Note: Need to do this after setup to stop clashes with other installed ACF.
+    function register_kcsu_acf() {
+        require_once('custom_fields.php');
+    }
+    add_action('after_setup_theme', 'register_kcsu_acf');
+     
     /**
      * Returns an array of exec members
      */
