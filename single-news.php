@@ -12,7 +12,7 @@
 <div class="container news post">
     <header>
         <h1><?php the_title(); ?></h1>
-        <p>Posted <span class="date relative"><?php echo get_the_date('Y/m/d H:i:s'); ?></span> by <span class="author"><?php the_author_link(); ?></span></p>
+        <p>Posted <span class="date relative" title="<?php echo get_the_date('c'); ?>"><?php echo get_the_date('Y/m/d H:i:s'); ?></span> by <span class="author"><?php the_author_link(); ?></span></p>
     </header>
     <hr />
     <div class="row">

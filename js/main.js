@@ -41,13 +41,13 @@ require(
     [
         'lodash', 'jquery', 'holder',
         'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse',
-        'plugins/relative-dates'
+        'plugins/timeago'
     ],
     function(_, $) {
         _.templateSettings = {
             interpolate : /\{\{(.+?)\}\}/g
         };
-        $('.date.relative').relativeDate();
+        $('.date.relative').timeago();
 
         // navbar open/close on mobiles
         $('.navbar.main .nav-collapse').on('show', function() {
