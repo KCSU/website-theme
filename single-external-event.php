@@ -1,9 +1,9 @@
 <?php
 /**
- * Single post template for events
+ * Single post template for external events
  * 
  * @package KCSU
- * @file    single_events.php
+ * @file    single-external-event.php
  * @author  Gideon Farrell <me@gideonfarrell.co.uk>
  * @license BSD 3-Clause
  */

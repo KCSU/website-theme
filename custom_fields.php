@@ -100,7 +100,7 @@ if(function_exists("register_field_group"))
         'fields' => array (
             array (
                 'key' => 'field_51608c7f4f268',
-                'label' => 'location',
+                'label' => 'Location',
                 'name' => 'location',
                 'type' => 'text',
                 'instructions' => 'Where is the event going to be?',
@@ -110,7 +110,7 @@ if(function_exists("register_field_group"))
             ),
             array (
                 'key' => 'field_5161a7adcd414',
-                'label' => 'date',
+                'label' => 'Date',
                 'name' => 'date',
                 'type' => 'date_picker',
                 'instructions' => 'When is the event going to be?',
@@ -120,10 +120,10 @@ if(function_exists("register_field_group"))
             ),
             array (
                 'key' => 'field_5161a7cfcd415',
-                'label' => 'time',
+                'label' => 'Time',
                 'name' => 'time',
                 'type' => 'text',
-                'instructions' => 'what time is the event going to be at? (HH:MM)',
+                'instructions' => 'What time is the event going to be at? (HH:MM)',
                 'required' => 1,
                 'default_value' => '',
                 'formatting' => 'none',
@@ -135,6 +135,60 @@ if(function_exists("register_field_group"))
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'event',
+                    'order_no' => 0,
+                ),
+            ),
+            'allorany' => 'all',
+        ),
+        'options' => array (
+            'position' => 'normal',
+            'layout' => 'no_box',
+            'hide_on_screen' => array (
+            ),
+        ),
+        'menu_order' => 0,
+    ));
+    register_field_group(array (
+        'id' => 'acf_external_events',
+        'title' => 'External Events',
+        'fields' => array (
+            array (
+                'key' => 'field_516563cd57468',
+                'label' => 'Location',
+                'name' => 'location',
+                'type' => 'text',
+                'instructions' => 'Where is the event going to be?',
+                'required' => 1,
+                'default_value' => '',
+                'formatting' => 'none',
+            ),
+            array (
+                'key' => 'field_5164bca25661d',
+                'label' => 'Date',
+                'name' => 'date',
+                'type' => 'date_picker',
+                'instructions' => 'When is the event going to be?',
+                'required' => 1,
+                'date_format' => 'yymmdd',
+                'display_format' => 'dd/mm/yy',
+            ),
+            array (
+                'key' => 'field_51636dfeac371',
+                'label' => 'Time',
+                'name' => 'time',
+                'type' => 'text',
+                'instructions' => 'What time is the event going to be at? (HH:MM)',
+                'required' => 1,
+                'default_value' => '',
+                'formatting' => 'none',
+            ),
+        ),
+        'location' => array (
+            'rules' => array (
+                array (
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'external-event',
                     'order_no' => 0,
                 ),
             ),

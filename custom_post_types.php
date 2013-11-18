@@ -38,5 +38,22 @@ function create_post_types() {
             'supports'      => array('title', 'author', 'editor')
         )
     );
+    register_post_type('external-event',
+        array(
+            'labels' => array(
+                'name'          => __('External Events'),
+                'singular_name' => __('External Event'),
+                'all_items'     => __('All External Events'),
+                'add_new_item'  => __('New External Event'),
+                'edit_item'     => __('Edit External Event'),
+                'new_item'      => __('New External Event'),
+                'view_item'     => __('View External Event')
+            ),
+            'public'        => true,
+            'heirarchical'  => false,
+            'rewrite'       => array('slug' => 'external-events'),
+            'supports'      => array('title', 'author', 'editor')
+        )
+    );
 }
 ?>

@@ -173,9 +173,9 @@
     }
     
     /**
-     * Returns all events happening before specified date, or in the next week if not supplied.
+     * Returns all events happening before specified date, or in the next week if not supplied. Defaults to internal events, but can return external (type=1) or all events (type=22) too.
      */
-    function kcsu_get_upcoming_events($time_limit = '')
+    function kcsu_get_upcoming_events($time_limit = '', $type = 0)
     {
         $events = array();
         
@@ -184,9 +184,24 @@
         
         $today = date('Ymd', time());
         
+        switch ($type) {
+            case 0:
+                $post_type_query = array('event');
+                break;
+            case 1:
+                $post_type_query = array('external-event');
+                break;
+            case 2:
+                $post_type_query = array('event', 'external-event');
+                break;
+            default:
+                $post_type_query = array('event');
+                break;
+        }
+        
         $args = array(
-                      'post_type'       => 'event',
-                      'posts_per_page'  => 10,
+                      'post_type'       => $post_type_query,
+                      'posts_per_page'  => 50,
                       'meta_key'        => 'date',
                       'orderby'         => 'meta_value_num',
                       'order'           => 'ASC',
