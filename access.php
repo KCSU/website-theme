@@ -23,7 +23,7 @@
 <div class="row">
 <!-- News -->
 <div id="NewsColumn" class="span8">
-<h2>The News</h2>
+<h2>The Access Blog</h2>
 <!-- the list -->
 <ul class="posts-list posts news">
 <?php

@@ -22,7 +22,7 @@
             </article>
         </div>
         <section class="roll news span4">
-            <h2>Hot off the press</h2>
+            <h2>Latest from the Access Blog</h2>
             <ul class="posts-list news">
             <?php
                 # Need to loop through posts with cat=news
