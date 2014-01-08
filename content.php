@@ -26,26 +26,5 @@
 		</div><!-- .entry-content -->
 
 		<footer class="entry-meta">
-			<?php
-				$categories_list = get_the_category_list(', ');
-				if ( $categories_list ):
-			?>
-			<span class="cat-links">
-				<?php printf( '<span class="%1$s">Posted in</span> %2$s', 'entry-utility-prep entry-utility-prep-cat-links', $categories_list );
-                ?>
-			</span>
-			<?php endif; ?>
-			<?php
-				$tags_list = get_the_tag_list( '', ', ');
-				if ( $tags_list ):
-            ?>
-			<span class="sep"> | </span>
-			<span class="tag-links">
-				<?php printf( '<span class="%1$s">Tagged</span> %2$s', 'entry-utility-prep entry-utility-prep-tag-links', $tags_list );
-				?>
-			</span>
-			<?php endif; ?>
-
-			<?php edit_post_link('Edit', '<span class="edit-link">', '</span>' ); ?>
 		</footer><!-- #entry-meta -->
 	</article><!-- #post-<?php the_ID(); ?> -->

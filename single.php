@@ -16,6 +16,9 @@ while(have_posts()): the_post();
 if(in_category('news')) {
     include('single-news.php');
 }
+if(in_category('access')) {
+    include('single-access.php');
+}
 
 endwhile;
 
