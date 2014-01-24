@@ -10,7 +10,12 @@
  */
     require_once('lib/string_format.php');
     require_once('lib/PhpLib/set.php');
-   
+    
+    /**
+     * Enable auto-updates
+     */
+    define( 'WP_AUTO_UPDATE_CORE', true );
+    
     /**
      * Register and configure menus
      */
