@@ -45,7 +45,7 @@
 <h2>Outside King&rsquo;s</h2>
 <ul class="posts-list posts events">
 <?php
-    $events = kcsu_get_upcoming_events(date('Ymd', strtotime('+1 month')), 1);
+    $events = kcsu_get_upcoming_events(date('Ymd', strtotime('+2 months')), 1);
     
     foreach ($events as $event)
     {
