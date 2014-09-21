@@ -1,6 +1,6 @@
 [submodule "lib/PhpLib"]
 	path = lib/PhpLib
-	url = git://github.com/gfarrell/PhpLib.git
+	url = https://github.com/gfarrell/PhpLib.git
 [submodule "advanced-custom-fields"]
 	path = lib/advanced-custom-fields
-	url = git@github.com:elliotcondon/acf.git
+	url = https://github.com/elliotcondon/acf.git
