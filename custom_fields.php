@@ -22,7 +22,7 @@ global $acf;
 if( !$acf )
 {
     define( 'ACF_LITE' , true );
-    include_once('/lib/advanced-custom-fields/acf.php');
+    include_once(dirname(__file__) . '/lib/advanced-custom-fields/acf.php');
 }
 
 // Fields 
