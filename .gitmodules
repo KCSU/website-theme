@@ -2,5 +2,5 @@
 	path = lib/PhpLib
 	url = git://github.com/gfarrell/PhpLib.git
 [submodule "advanced-custom-fields"]
-	path = advanced-custom-fields
+	path = lib/advanced-custom-fields
 	url = git@github.com:elliotcondon/acf.git

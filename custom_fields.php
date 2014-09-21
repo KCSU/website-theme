@@ -22,7 +22,7 @@ global $acf;
 if( !$acf )
 {
     define( 'ACF_LITE' , true );
-    include_once(WPRavenAuth_dir . '/app/lib/advanced-custom-fields/acf.php');
+    include_once('/lib/advanced-custom-fields/acf.php');
 }
 
 // Fields 
