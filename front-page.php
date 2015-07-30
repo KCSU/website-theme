@@ -7,6 +7,9 @@
 
 <div class="container">
     <div class="row">
+<?php
+    if ( 'posts' == get_option( 'show_on_front' ) ) :
+?>
         <!-- News -->
         <div id="NewsColumn" class="span8 home-column">
             <h2>The Latest</h2>
@@ -43,24 +46,22 @@
             ?>
             </ul>
         </div>
+<?php else : ?>
+        <!-- Static front page -->
+        <div id="FrontPageColumn" class="span8 home-column">
+            <?php include( get_page_template() ); ?>
+        </div>
+<?php endif; ?>
         <div id="RHSColumn" class="span4 home-column">
-            <!-- Events -->
-            <div id="EventsColumn">
-                <h2>Coming Up</h2>
-                <ul class="posts-list events">
-                <?php
-                    $events = kcsu_get_upcoming_events(date('Ymd', strtotime('+2 months')));
-                    
-                    foreach ($events as $event)
-                    {
-                        echo string_format(
-                                           '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span><span class="aux"> - </span><span class="aux location">{location}</span></li>',
-                                           $event
-                                           );
-                    }
-                ?>
-                </ul>
-            </div>
+            <?php
+                if ( is_active_sidebar('home_right_1') )
+                {
+                    echo('<!-- Sidebar1 -->');
+                    echo('<div>');
+                    dynamic_sidebar( 'home_right_1' );
+                    echo('</div>');
+                }
+            ?>
             <!-- Quick Links -->
             <div id="LinksColumn">
                 <h2>Getting Around</h2>
@@ -74,6 +75,16 @@
                     ?>
                 </ul>
             </div>
+            <?php
+                if ( is_active_sidebar('home_right_2') )
+                {
+                    echo('<!-- Sidebar2 -->');
+                    echo('<div>');
+                    dynamic_sidebar( 'home_right_2' );
+                    echo('</div>');
+                }
+            ?>
+
         </div>
     </div>
 </div>

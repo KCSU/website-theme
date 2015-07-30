@@ -259,3 +259,33 @@
         return 40;
     }
     add_filter( 'excerpt_length', 'kcsu_excerpt_length' );
+    
+    // Add our widgets
+    /**
+     * Register our sidebars and widgetized areas.
+     *
+     */
+    function kcsu_widgets_init() {
+        
+        register_sidebar( array(
+                                'name'          => 'Home sidebar before menu',
+                                'id'            => 'home_right_1',
+                                'before_widget' => '<div>',
+                                'after_widget'  => '</div>',
+                                'before_title'  => '<h2>',
+                                'after_title'   => '</h2>',
+                                ) );
+        
+        register_sidebar( array(
+                                'name'          => 'Home sidebar after menu',
+                                'id'            => 'home_right_2',
+                                'before_widget' => '<div>',
+                                'after_widget'  => '</div>',
+                                'before_title'  => '<h2>',
+                                'after_title'   => '</h2>',
+                                ) );
+    }
+    add_action( 'widgets_init', 'kcsu_widgets_init' );
+    require_once('custom_widgets.php');
+    
+?>
