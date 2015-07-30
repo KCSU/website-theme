@@ -3,6 +3,8 @@
  * Register custom post types
  */
 add_action( 'init', 'create_post_types' );
+add_action( 'admin_menu', 'kcsu_remove_menu_items' );
+    
 function create_post_types() {
     register_post_type('exec',
         array(
@@ -55,5 +57,31 @@ function create_post_types() {
             'supports'      => array('title', 'author', 'editor')
         )
     );
+    register_post_type('classifieds',
+        array(
+            'labels' => array(
+                'name'          => __('Marketplace Ads'),
+                'singular_name' => __('Marketplace Ad'),
+                'all_items'     => __('All Marketplace Ads'),
+                'add_new_item'  => __('New Marketplace Ad'),
+                'edit_item'     => __('Edit Marketplace Ad'),
+                'new_item'      => __('New Marketplace Ad'),
+                'view_item'     => __('View Marketplace Ad')
+            ),
+            'public'          => true,
+            'heirarchical'    => false,
+            'capability_type' => 'marketplace'
+            'rewrite'         => array('slug' => 'marketplace'),
+            'supports'        => array('title', 'author', 'editor')
+        )
+    );
+}
+
+function kcsu_remove_menu_items() {
+    if (!current_user_can( 'edit_post' )) {
+        remove_menu_page( 'edit.php?post_type=exec' );
+        remove_menu_page( 'edit.php?post_type=event' );
+        remove_menu_page( 'edit.php?post_type=external-event' );
+    }
 }
 ?>

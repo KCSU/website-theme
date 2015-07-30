@@ -8,7 +8,7 @@
     ?>
 <?php
     /**
-     * Eents list page
+     * Events list page
      *
      * @package KCSU
      * @file    events.php

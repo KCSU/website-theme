@@ -15,7 +15,7 @@
 
 			<?php if ( 'post' == get_post_type() ) : ?>
 			<div class="entry-meta">
-				<?php kcsu_posted_on(); ?>
+				<?php get_the_date() ?>
 			</div><!-- .entry-meta -->
 			<?php endif; ?>
 
