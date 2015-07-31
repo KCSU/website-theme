@@ -8,7 +8,41 @@
  * @license BSD 3-Clause
  *
  */
+    function kcsu_coming_soon($timeframe)
+    {
+        $output = "<!-- Events -->
+                    <div id=\"EventsColumn\">
+                    <h2>Coming Up</h2>
+                    <ul class=\"posts-list events\">" . "\n";
+        
+        $events = kcsu_get_upcoming_events(date('Ymd', strtotime($timeframe)));
+        
+        foreach ($events as $event)
+        {
+            $output .= string_format(
+                               '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span><span class="aux"> - </span><span class="aux location">{location}</span></li>',
+                               $event
+                               ) . "\n";
+        }
+        
+        $output .= "
+                        </ul>
+                    </div>";
+        
+        return $output;
+    }
     
+    function kcsu_coming_soon_shortcode_func( $atts )
+    {
+        $a = shortcode_atts( array(
+                                   'timeframe' => '+2 months',
+                                   ), $atts );
+        
+        return kcsu_coming_soon( $a['timeframe'] );
+    }
+    add_shortcode( 'kcsu_coming_soon', 'kcsu_coming_soon_shortcode_func' );
+    
+
     /**
      * Adds Events widget.
      */
@@ -36,25 +70,7 @@
          */
         public function widget( $args, $instance )
         {
-            ?>
-                <!-- Events -->
-                <div id="EventsColumn">
-                    <h2>Coming Up</h2>
-                    <ul class="posts-list events">
-            <?php
-                $events = kcsu_get_upcoming_events(date('Ymd', strtotime($instance['timelimit'])));
-                
-                foreach ($events as $event)
-                {
-                    echo string_format(
-                                       '<li><!-- {id} --><a href="{link}" title="{title}">{title}</a> <span class="aux date">{date}</span><span class="aux"> - </span><span class="aux location">{location}</span></li>',
-                                       $event
-                                       );
-                }
-            ?>
-                    </ul>
-                </div>
-            <?php
+            echo kcsu_coming_soon($instance['timelimit']);
         }
 
         /**
