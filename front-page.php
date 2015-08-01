@@ -49,7 +49,12 @@
 <?php else : ?>
         <!-- Static front page -->
         <div id="FrontPageColumn" class="span8 home-column">
-            <?php include( get_page_template() ); ?>
+            <?php
+                while ( have_posts() ){
+                    the_post();
+                    get_template_part( 'content', 'page' );
+                }
+            ?>
         </div>
 <?php endif; ?>
         <div id="RHSColumn" class="span4 home-column">

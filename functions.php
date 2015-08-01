@@ -40,7 +40,20 @@
         require_once('custom_fields.php');
     }
     add_action('after_setup_theme', 'register_kcsu_acf');
-     
+    
+    /**
+     * Add scripts
+     */
+    
+    function kcsu_register_scripts()
+    {
+        wp_register_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.js', array( 'jquery' ), '2.3.2', true );
+        wp_register_script( 'timeago', get_template_directory_uri() . '/js/plugins/timeago.js', array( 'jquery' ), '1.4.1', true  );
+        wp_enqueue_script( 'main', get_template_directory_uri() . '/js/main.js',
+                          array( 'jquery', 'bootstrap', 'timeago'), '1.0.0', true );
+    }
+    add_action( 'wp_enqueue_scripts', 'kcsu_register_scripts' );
+    
     /**
      * Returns an array of exec members
      */

@@ -38,17 +38,18 @@
                            <article><!-- {id} -->
                            <header>
                            <a href="{link}" title="{title}" class="title">{title}</a>
-                           <span class="aux date">{date}</span>
+                           <span class="aux date relative" title={timestamp}>{date}</span>
                            </header>
                            <div class="span7 excerpt">{excerpt}</div>
                            </article><div class="clearfix"></div>
                            </li>',
                            array(
-                                 'id'      =>  get_the_ID(),
-                                 'link'    =>  get_permalink(),
-                                 'title'   =>  get_the_title(),
-                                 'date'    =>  get_the_date('d/m/Y'),
-                                 'excerpt' =>  get_the_excerpt()
+                                 'id'        =>  get_the_ID(),
+                                 'link'      =>  get_permalink(),
+                                 'title'     =>  get_the_title(),
+                                 'timestamp' =>  get_the_date('c'),
+                                 'date'      =>  get_the_date('Y/m/d H:i:s'),
+                                 'excerpt'   =>  get_the_excerpt()
                                  )
                            );
     }

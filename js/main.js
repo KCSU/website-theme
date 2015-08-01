@@ -27,37 +27,20 @@
     @author  Gideon Farrell <me@gideonfarrell.co.uk>
  */
 
-
-
-// Basic configuration
-require.config({
-    paths: {
-        'jquery':     'jquery-1.8.3'
-    }
-});
-
 // Initialise application
-require(
-    [
-        'lodash', 'jquery', 'holder',
-        'bootstrap/dropdown', 'bootstrap/alert', 'bootstrap/collapse',
-        'plugins/timeago'
-    ],
-    function(_, $) {
-        _.templateSettings = {
-            interpolate : /\{\{(.+?)\}\}/g
-        };
-        $('.date.relative').timeago();
+jQuery(document).ready(function( $ ) {
+        
+    $(".date.relative").timeago();
 
-        // navbar open/close on mobiles
-        $('.navbar.main .nav-collapse').on('show', function() {
-            var expBar = $('.navbar.main .expand-bar');
-            expBar.addClass('open');
-            expBar.find('i[class*="icon-"]').removeClass('icon-chevron-down').addClass('icon-chevron-up');
-        }).on('hide', function() {
-            var expBar = $('.navbar.main .expand-bar');
-            expBar.removeClass('open');
-            expBar.find('i[class*="icon-"]').removeClass('icon-chevron-up').addClass('icon-chevron-down');
-        });
-    }
-);
+    // navbar open/close on mobiles
+    $('.navbar.main .nav-collapse').on('show', function() {
+        var expBar = $('.navbar.main .expand-bar');
+        expBar.addClass('open');
+        expBar.find('i[class*="icon-"]').removeClass('icon-chevron-down').addClass('icon-chevron-up');
+    }).on('hide', function() {
+        var expBar = $('.navbar.main .expand-bar');
+        expBar.removeClass('open');
+        expBar.find('i[class*="icon-"]').removeClass('icon-chevron-up').addClass('icon-chevron-down');
+    });
+	
+});
