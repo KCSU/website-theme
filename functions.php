@@ -20,7 +20,7 @@
      * Register and configure menus
      */
     
-    require_once('lib/twitter_bootstrap_nav_walker.php');
+    require_once('lib/wp_bootstrap_navwalker.php');
     function register_menus() {
         // The main navbar (top menu)
         register_nav_menus(array(

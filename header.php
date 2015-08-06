@@ -55,7 +55,7 @@
                                 'container'       => false,
                                 'menu_class'      => 'nav',
                                 'depth'           => 2,
-                                'walker'          =>  new twitter_bootstrap_nav_walker())
+                                'walker'          =>  new wp_bootstrap_navwalker())
                             );
                         ?>
                         <!-- Account stuff -->
